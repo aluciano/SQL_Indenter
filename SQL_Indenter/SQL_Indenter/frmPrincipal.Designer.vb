@@ -25,12 +25,13 @@ Partial Class frmPrincipal
         Me.txtSql = New System.Windows.Forms.RichTextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.chkSepararOperadoresLogicosComUmEspaco = New System.Windows.Forms.CheckBox()
         Me.chkQuebrarLinhaACadaColuna = New System.Windows.Forms.CheckBox()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.btnFormatar = New System.Windows.Forms.Button()
         Me.grpQuebrarLinhaACadaColuna = New System.Windows.Forms.GroupBox()
         Me.rdbVirgulaInicioLinha = New System.Windows.Forms.RadioButton()
         Me.rdbVirgulaFinalLinha = New System.Windows.Forms.RadioButton()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.btnFormatar = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.grpQuebrarLinhaACadaColuna.SuspendLayout()
@@ -43,7 +44,9 @@ Partial Class frmPrincipal
         Me.txtSql.Name = "txtSql"
         Me.txtSql.Size = New System.Drawing.Size(761, 266)
         Me.txtSql.TabIndex = 0
-        Me.txtSql.Text = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
+        Me.txtSql.Text = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1>=1 AND TESTE2=100 " & _
+    "AND TESTE3<>TESTE4 AND TESTE1<TESTE2 AND TESTE2>TESTE3 AND TESTE1*=TESTE2 AND TE" & _
+    "STE2=*TEST4 AND TESTE2<=TESTE1"
         '
         'TabControl1
         '
@@ -57,6 +60,7 @@ Partial Class frmPrincipal
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.chkSepararOperadoresLogicosComUmEspaco)
         Me.TabPage1.Controls.Add(Me.chkQuebrarLinhaACadaColuna)
         Me.TabPage1.Controls.Add(Me.grpQuebrarLinhaACadaColuna)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
@@ -66,6 +70,18 @@ Partial Class frmPrincipal
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "SELECT"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'chkSepararOperadoresLogicosComUmEspaco
+        '
+        Me.chkSepararOperadoresLogicosComUmEspaco.AutoSize = True
+        Me.chkSepararOperadoresLogicosComUmEspaco.Checked = True
+        Me.chkSepararOperadoresLogicosComUmEspaco.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkSepararOperadoresLogicosComUmEspaco.Location = New System.Drawing.Point(205, 6)
+        Me.chkSepararOperadoresLogicosComUmEspaco.Name = "chkSepararOperadoresLogicosComUmEspaco"
+        Me.chkSepararOperadoresLogicosComUmEspaco.Size = New System.Drawing.Size(233, 17)
+        Me.chkSepararOperadoresLogicosComUmEspaco.TabIndex = 6
+        Me.chkSepararOperadoresLogicosComUmEspaco.Text = "Separar operadores lógicos com um espaço"
+        Me.chkSepararOperadoresLogicosComUmEspaco.UseVisualStyleBackColor = True
         '
         'chkQuebrarLinhaACadaColuna
         '
@@ -78,25 +94,6 @@ Partial Class frmPrincipal
         Me.chkQuebrarLinhaACadaColuna.TabIndex = 2
         Me.chkQuebrarLinhaACadaColuna.Text = "Quebrar linha a cada coluna"
         Me.chkQuebrarLinhaACadaColuna.UseVisualStyleBackColor = True
-        '
-        'TabPage2
-        '
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(753, 187)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
-        Me.TabPage2.UseVisualStyleBackColor = True
-        '
-        'btnFormatar
-        '
-        Me.btnFormatar.Location = New System.Drawing.Point(332, 503)
-        Me.btnFormatar.Name = "btnFormatar"
-        Me.btnFormatar.Size = New System.Drawing.Size(124, 33)
-        Me.btnFormatar.TabIndex = 2
-        Me.btnFormatar.Text = "Formatar"
-        Me.btnFormatar.UseVisualStyleBackColor = True
         '
         'grpQuebrarLinhaACadaColuna
         '
@@ -130,7 +127,26 @@ Partial Class frmPrincipal
         Me.rdbVirgulaFinalLinha.Text = "Vírgula no final da linha"
         Me.rdbVirgulaFinalLinha.UseVisualStyleBackColor = True
         '
-        'Form1
+        'TabPage2
+        '
+        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage2.Name = "TabPage2"
+        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage2.Size = New System.Drawing.Size(753, 187)
+        Me.TabPage2.TabIndex = 1
+        Me.TabPage2.Text = "TabPage2"
+        Me.TabPage2.UseVisualStyleBackColor = True
+        '
+        'btnFormatar
+        '
+        Me.btnFormatar.Location = New System.Drawing.Point(332, 503)
+        Me.btnFormatar.Name = "btnFormatar"
+        Me.btnFormatar.Size = New System.Drawing.Size(124, 33)
+        Me.btnFormatar.TabIndex = 2
+        Me.btnFormatar.Text = "Formatar"
+        Me.btnFormatar.UseVisualStyleBackColor = True
+        '
+        'frmPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -138,7 +154,7 @@ Partial Class frmPrincipal
         Me.Controls.Add(Me.btnFormatar)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.txtSql)
-        Me.Name = "Form1"
+        Me.Name = "frmPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "SQL Indenter"
         Me.TabControl1.ResumeLayout(False)
@@ -159,4 +175,5 @@ Partial Class frmPrincipal
     Friend WithEvents grpQuebrarLinhaACadaColuna As GroupBox
     Friend WithEvents rdbVirgulaInicioLinha As RadioButton
     Friend WithEvents rdbVirgulaFinalLinha As RadioButton
+    Friend WithEvents chkSepararOperadoresLogicosComUmEspaco As CheckBox
 End Class

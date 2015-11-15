@@ -22,6 +22,7 @@ Partial Class frmPrincipal
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPrincipal))
         Me.txtSql = New System.Windows.Forms.RichTextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
@@ -44,9 +45,7 @@ Partial Class frmPrincipal
         Me.txtSql.Name = "txtSql"
         Me.txtSql.Size = New System.Drawing.Size(761, 266)
         Me.txtSql.TabIndex = 0
-        Me.txtSql.Text = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1>=1 AND TESTE2=100 " & _
-    "AND TESTE3<>TESTE4 AND TESTE1<TESTE2 AND TESTE2>TESTE3 AND TESTE1*=TESTE2 AND TE" & _
-    "STE2=*TEST4 AND TESTE2<=TESTE1"
+        Me.txtSql.Text = resources.GetString("txtSql.Text")
         '
         'TabControl1
         '

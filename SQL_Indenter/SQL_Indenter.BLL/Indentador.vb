@@ -18,6 +18,7 @@ Public Class Indentador
         scriptSql = RemoverQuebrasDeLinha(scriptSql)
         Dim sqlList As List(Of String) = ConverterScriptEmListaDeStatements(scriptSql)
         sqlList = QuebrarLinhaACadaColuna(sqlList)
+        sqlList = SomenteUmEspacoAposStatement(sqlList)
         sqlList = SepararOperadoresLogicosComUmEspaco(sqlList)
 
         Return Indentar(sqlList)
@@ -177,6 +178,30 @@ Public Class Indentador
                 End If
             Next
         End If
+
+        Return sqlList
+    End Function
+
+    Private Function SomenteUmEspacoAposStatement(sqlList As List(Of String)) As List(Of String)
+        Dim statementDetected As String = ""
+        Dim sql As String = ""
+        
+        For i = 0 To sqlList.Count - 1
+            sql = sqlList(i).Trim()
+
+            statementDetected = DetectStatement(sql, statementDetected)
+
+            Select Case statementDetected
+                Case SELECT_STATEMENT, FROM_STATEMENT, WHERE_STATEMENT, AND_STATEMENT
+                    While sqlList(i).Contains(statementDetected & "  ")
+                        sqlList(i) = sqlList(i).Replace(statementDetected & "  ", statementDetected & " ")
+                    End While
+
+                Case Else
+                    sqlList(i) = sql
+
+            End Select
+        Next
 
         Return sqlList
     End Function

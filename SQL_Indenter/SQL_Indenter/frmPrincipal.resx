@@ -117,4 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="txtSql.Text" xml:space="preserve">
+    <value>SELECT   TESTE1,  TESTE2 , TESTE3,    TESTE4   FROM  TABELA WHERE TESTE1   &gt;=1  AND TESTE2=100  AND   TESTE3    &lt;&gt;TESTE4    AND  TESTE1&lt;TESTE2 AND TESTE2&gt;  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2&lt;=TESTE1</value>
+  </data>
 </root>

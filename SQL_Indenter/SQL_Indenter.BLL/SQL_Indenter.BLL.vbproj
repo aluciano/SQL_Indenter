@@ -63,7 +63,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Indentador.vb" />
+    <Compile Include="IndentadorBLL.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -79,6 +79,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ParametrosInterfaceXmlBLL.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -103,6 +104,10 @@
     <ProjectReference Include="..\SQL_Indenter.BEL\SQL_Indenter.BEL.vbproj">
       <Project>{80b6d3a4-721f-48ec-b8f6-397125b8b12e}</Project>
       <Name>SQL_Indenter.BEL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SQL_Intenter.DAL\SQL_Intenter.DAL.vbproj">
+      <Project>{fac24603-0737-4828-bc2c-9c921e1c59d0}</Project>
+      <Name>SQL_Intenter.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

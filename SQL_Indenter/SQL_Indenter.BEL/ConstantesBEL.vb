@@ -1,4 +1,4 @@
-﻿Public Class Constantes
+﻿Public Class ConstantesBEL
 
 #Region "Statements"
     Public Const SELECT_STATEMENT As String = "SELECT"

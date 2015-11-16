@@ -6,52 +6,52 @@ Imports SQL_Indenter.BLL
 <TestClass()> Public Class IndentadorUnitTest
 
 #Region "Cenários de parametrizações de Interface"
-    Private Function ObterParametrosInterface_Cenario_01() As List(Of ParametroInterface)
-        Dim parametrosInterface As New List(Of ParametroInterface)
+    Private Function ObterParametrosInterface_Cenario_01() As List(Of ParametroInterfaceBEL)
+        Dim parametrosInterface As New List(Of ParametroInterfaceBEL)
 
-        parametrosInterface.Add(New ParametroInterface("QuebrarLinhaACadaColuna", True))
-        parametrosInterface.Add(New ParametroInterface("VirgulaInicioLinha", True))
-        parametrosInterface.Add(New ParametroInterface("SepararOperadoresLogicosComUmEspaco", False))
-
-        Return parametrosInterface
-    End Function
-
-    Private Function ObterParametrosInterface_Cenario_02() As List(Of ParametroInterface)
-        Dim parametrosInterface As New List(Of ParametroInterface)
-
-        parametrosInterface.Add(New ParametroInterface("QuebrarLinhaACadaColuna", True))
-        parametrosInterface.Add(New ParametroInterface("VirgulaInicioLinha", False))
-        parametrosInterface.Add(New ParametroInterface("SepararOperadoresLogicosComUmEspaco", False))
+        parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaColuna", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", False))
 
         Return parametrosInterface
     End Function
 
-    Private Function ObterParametrosInterface_Cenario_03() As List(Of ParametroInterface)
-        Dim parametrosInterface As New List(Of ParametroInterface)
+    Private Function ObterParametrosInterface_Cenario_02() As List(Of ParametroInterfaceBEL)
+        Dim parametrosInterface As New List(Of ParametroInterfaceBEL)
 
-        parametrosInterface.Add(New ParametroInterface("QuebrarLinhaACadaColuna", False))
-        parametrosInterface.Add(New ParametroInterface("VirgulaInicioLinha", True))
-        parametrosInterface.Add(New ParametroInterface("SepararOperadoresLogicosComUmEspaco", False))
-
-        Return parametrosInterface
-    End Function
-
-    Private Function ObterParametrosInterface_Cenario_04() As List(Of ParametroInterface)
-        Dim parametrosInterface As New List(Of ParametroInterface)
-
-        parametrosInterface.Add(New ParametroInterface("QuebrarLinhaACadaColuna", True))
-        parametrosInterface.Add(New ParametroInterface("VirgulaInicioLinha", True))
-        parametrosInterface.Add(New ParametroInterface("SepararOperadoresLogicosComUmEspaco", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaColuna", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", False))
+        parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", False))
 
         Return parametrosInterface
     End Function
 
-    Private Function ObterParametrosInterface_Cenario_05() As List(Of ParametroInterface)
-        Dim parametrosInterface As New List(Of ParametroInterface)
+    Private Function ObterParametrosInterface_Cenario_03() As List(Of ParametroInterfaceBEL)
+        Dim parametrosInterface As New List(Of ParametroInterfaceBEL)
 
-        parametrosInterface.Add(New ParametroInterface("QuebrarLinhaACadaColuna", True))
-        parametrosInterface.Add(New ParametroInterface("VirgulaInicioLinha", False))
-        parametrosInterface.Add(New ParametroInterface("SepararOperadoresLogicosComUmEspaco", False))
+        parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaColuna", False))
+        parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", False))
+
+        Return parametrosInterface
+    End Function
+
+    Private Function ObterParametrosInterface_Cenario_04() As List(Of ParametroInterfaceBEL)
+        Dim parametrosInterface As New List(Of ParametroInterfaceBEL)
+
+        parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaColuna", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", True))
+
+        Return parametrosInterface
+    End Function
+
+    Private Function ObterParametrosInterface_Cenario_05() As List(Of ParametroInterfaceBEL)
+        Dim parametrosInterface As New List(Of ParametroInterfaceBEL)
+
+        parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaColuna", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", False))
+        parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", False))
 
         Return parametrosInterface
     End Function
@@ -59,7 +59,7 @@ Imports SQL_Indenter.BLL
 #End Region
 
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_01()
-        Dim indentador As New Indentador(ObterParametrosInterface_Cenario_01())
+        Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_01())
 
         Dim scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
@@ -74,7 +74,7 @@ Imports SQL_Indenter.BLL
     End Sub
 
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_02()
-        Dim indentador As New Indentador(ObterParametrosInterface_Cenario_02())
+        Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_02())
 
         Dim scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
@@ -89,7 +89,7 @@ Imports SQL_Indenter.BLL
     End Sub
 
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_03()
-        Dim indentador As New Indentador(ObterParametrosInterface_Cenario_03())
+        Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_03())
 
         Dim scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
@@ -101,7 +101,7 @@ Imports SQL_Indenter.BLL
     End Sub
 
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_04()
-        Dim indentador As New Indentador(ObterParametrosInterface_Cenario_04())
+        Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_04())
 
         Dim scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1>=1 AND TESTE2=100 AND TESTE3<>TESTE4 AND TESTE1<TESTE2 AND TESTE2>TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
@@ -123,7 +123,7 @@ Imports SQL_Indenter.BLL
     End Sub
 
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_04_1()
-        Dim indentador As New Indentador(ObterParametrosInterface_Cenario_04())
+        Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_04())
 
         Dim scriptSql As String = "SELECT   TESTE1,  TESTE2 , TESTE3,    TESTE4   FROM  TABELA WHERE TESTE1   >=1  AND TESTE2=100  AND   TESTE3    <>TESTE4    AND  TESTE1<TESTE2 AND TESTE2>  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
@@ -145,7 +145,7 @@ Imports SQL_Indenter.BLL
     End Sub
 
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_05()
-        Dim indentador As New Indentador(ObterParametrosInterface_Cenario_05())
+        Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_05())
 
         Dim scriptSql As String = "SELECT   TESTE1,  TESTE2 , TESTE3,    TESTE4   FROM  TABELA WHERE TESTE1   >=1  AND TESTE2=100  AND   TESTE3    <>TESTE4    AND  TESTE1<TESTE2 AND TESTE2>  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)

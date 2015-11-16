@@ -1,11 +1,11 @@
 ﻿Imports SQL_Indenter.BEL
-Imports SQL_Indenter.BEL.Constantes
+Imports SQL_Indenter.BEL.ConstantesBEL
 
-Public Class Indentador
+Public Class IndentadorBLL
 
-    Public Property ParametrosUI As List(Of ParametroInterface)
+    Public Property ParametrosUI As List(Of ParametroInterfaceBEL)
 
-    Public Sub New(parametrosInterface As List(Of ParametroInterface))
+    Public Sub New(parametrosInterface As List(Of ParametroInterfaceBEL))
         ParametrosUI = parametrosInterface
     End Sub
 
@@ -185,7 +185,7 @@ Public Class Indentador
     Private Function SomenteUmEspacoAposStatement(sqlList As List(Of String)) As List(Of String)
         Dim statementDetected As String = ""
         Dim sql As String = ""
-        
+
         For i = 0 To sqlList.Count - 1
             sql = sqlList(i).Trim()
 

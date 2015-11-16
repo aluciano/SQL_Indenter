@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SQL_Indenter", "SQL_Indenter\SQL_Indenter.vbproj", "{419978A7-1B16-49E9-BDA7-1F7677B81503}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SQL_Indenter.BEL", "SQL_Indenter.BEL\SQL_Indenter.BEL.vbproj", "{80B6D3A4-721F-48EC-B8F6-397125B8B12E}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SQL_Indenter.UnitTest", "SQL_Indenter.UnitTest\SQL_Indenter.UnitTest.vbproj", "{3F7176B5-5908-46C5-A428-5A5634D06F0F}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "SQL_Intenter.DAL", "SQL_Intenter.DAL\SQL_Intenter.DAL.vbproj", "{FAC24603-0737-4828-BC2C-9C921E1C59D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{3F7176B5-5908-46C5-A428-5A5634D06F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F7176B5-5908-46C5-A428-5A5634D06F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F7176B5-5908-46C5-A428-5A5634D06F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAC24603-0737-4828-BC2C-9C921E1C59D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAC24603-0737-4828-BC2C-9C921E1C59D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAC24603-0737-4828-BC2C-9C921E1C59D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAC24603-0737-4828-BC2C-9C921E1C59D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

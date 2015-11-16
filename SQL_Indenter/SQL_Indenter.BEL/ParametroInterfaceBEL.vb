@@ -1,4 +1,8 @@
-﻿Public Class ParametroInterface
+﻿Public Class ParametroInterfaceBEL
+
+    Public Sub New()
+
+    End Sub
 
     Public Sub New(nomeParametro As String, valorParametro As Object)
         Nome = nomeParametro

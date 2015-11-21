@@ -40,21 +40,26 @@ Partial Class frmPrincipal
         '
         'txtSql
         '
+        Me.txtSql.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtSql.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSql.Location = New System.Drawing.Point(12, 231)
+        Me.txtSql.Location = New System.Drawing.Point(12, 130)
         Me.txtSql.Name = "txtSql"
-        Me.txtSql.Size = New System.Drawing.Size(761, 266)
+        Me.txtSql.Size = New System.Drawing.Size(761, 430)
         Me.txtSql.TabIndex = 0
         Me.txtSql.Text = resources.GetString("txtSql.Text")
         '
         'TabControl1
         '
+        Me.TabControl1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(761, 213)
+        Me.TabControl1.Size = New System.Drawing.Size(761, 112)
         Me.TabControl1.TabIndex = 1
         '
         'TabPage1
@@ -65,7 +70,7 @@ Partial Class frmPrincipal
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(753, 187)
+        Me.TabPage1.Size = New System.Drawing.Size(753, 86)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "SELECT"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -138,7 +143,8 @@ Partial Class frmPrincipal
         '
         'btnFormatar
         '
-        Me.btnFormatar.Location = New System.Drawing.Point(332, 503)
+        Me.btnFormatar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnFormatar.Location = New System.Drawing.Point(332, 566)
         Me.btnFormatar.Name = "btnFormatar"
         Me.btnFormatar.Size = New System.Drawing.Size(124, 33)
         Me.btnFormatar.TabIndex = 2
@@ -149,13 +155,14 @@ Partial Class frmPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(785, 548)
+        Me.ClientSize = New System.Drawing.Size(785, 611)
         Me.Controls.Add(Me.btnFormatar)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.txtSql)
         Me.Name = "frmPrincipal"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "SQL Indenter"
+        Me.WindowState = System.Windows.Forms.FormWindowState.Maximized
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()

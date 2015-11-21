@@ -1,5 +1,4 @@
-﻿Imports System.Text
-Imports Microsoft.VisualStudio.TestTools.UnitTesting
+﻿Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports SQL_Indenter.BEL
 Imports SQL_Indenter.BLL
 
@@ -56,19 +55,29 @@ Imports SQL_Indenter.BLL
         Return parametrosInterface
     End Function
 
+    Private Function ObterParametrosInterface_Cenario_06() As List(Of ParametroInterfaceBEL)
+        Dim parametrosInterface As New List(Of ParametroInterfaceBEL)
+
+        parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaColuna", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", False))
+        parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", True))
+
+        Return parametrosInterface
+    End Function
+
 #End Region
 
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_01()
         Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_01())
 
-        Dim scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
+        Const scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
-        Dim retornoEsperado As String = "SELECT TESTE1" & vbLf _
-                                      & "      ,TESTE2" & vbLf _
-                                      & "      ,TESTE3" & vbLf _
-                                      & "      ,TESTE4" & vbLf _
-                                      & "  FROM TABELA" & vbLf _
-                                      & " WHERE TESTE1=1"
+        Const retornoEsperado As String = "SELECT TESTE1" & vbLf _
+                                        & "      ,TESTE2" & vbLf _
+                                        & "      ,TESTE3" & vbLf _
+                                        & "      ,TESTE4" & vbLf _
+                                        & "  FROM TABELA" & vbLf _
+                                        & " WHERE TESTE1=1"
 
         Assert.AreEqual(retornoEsperado, retorno)
     End Sub
@@ -76,14 +85,14 @@ Imports SQL_Indenter.BLL
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_02()
         Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_02())
 
-        Dim scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
+        Const scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
-        Dim retornoEsperado As String = "SELECT TESTE1," & vbLf _
-                                      & "       TESTE2," & vbLf _
-                                      & "       TESTE3," & vbLf _
-                                      & "       TESTE4" & vbLf _
-                                      & "  FROM TABELA" & vbLf _
-                                      & " WHERE TESTE1=1"
+        Const retornoEsperado As String = "SELECT TESTE1," & vbLf _
+                                        & "       TESTE2," & vbLf _
+                                        & "       TESTE3," & vbLf _
+                                        & "       TESTE4" & vbLf _
+                                        & "  FROM TABELA" & vbLf _
+                                        & " WHERE TESTE1=1"
 
         Assert.AreEqual(retornoEsperado, retorno)
     End Sub
@@ -91,11 +100,11 @@ Imports SQL_Indenter.BLL
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_03()
         Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_03())
 
-        Dim scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
+        Const scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1=1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
-        Dim retornoEsperado As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4" & vbLf _
-                                      & "  FROM TABELA" & vbLf _
-                                      & " WHERE TESTE1=1"
+        Const retornoEsperado As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4" & vbLf _
+                                        & "  FROM TABELA" & vbLf _
+                                        & " WHERE TESTE1=1"
 
         Assert.AreEqual(retornoEsperado, retorno)
     End Sub
@@ -103,21 +112,21 @@ Imports SQL_Indenter.BLL
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_04()
         Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_04())
 
-        Dim scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1>=1 AND TESTE2=100 AND TESTE3<>TESTE4 AND TESTE1<TESTE2 AND TESTE2>TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
+        Const scriptSql As String = "SELECT TESTE1, TESTE2, TESTE3, TESTE4 FROM TABELA WHERE TESTE1>=1 AND TESTE2=100 AND TESTE3<>TESTE4 AND TESTE1<TESTE2 AND TESTE2>TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
-        Dim retornoEsperado As String = "SELECT TESTE1" & vbLf _
-                                      & "      ,TESTE2" & vbLf _
-                                      & "      ,TESTE3" & vbLf _
-                                      & "      ,TESTE4" & vbLf _
-                                      & "  FROM TABELA" & vbLf _
-                                      & " WHERE TESTE1 >= 1" & vbLf _
-                                      & "   AND TESTE2 = 100" & vbLf _
-                                      & "   AND TESTE3 <> TESTE4" & vbLf _
-                                      & "   AND TESTE1 < TESTE2" & vbLf _
-                                      & "   AND TESTE2 > TESTE3" & vbLf _
-                                      & "   AND TESTE1 *= TESTE2" & vbLf _
-                                      & "   AND TESTE2 =* TEST4" & vbLf _
-                                      & "   AND TESTE2 <= TESTE1"
+        Const retornoEsperado As String = "SELECT TESTE1" & vbLf _
+                                       & "      ,TESTE2" & vbLf _
+                                       & "      ,TESTE3" & vbLf _
+                                       & "      ,TESTE4" & vbLf _
+                                       & "  FROM TABELA" & vbLf _
+                                       & " WHERE TESTE1 >= 1" & vbLf _
+                                       & "   AND TESTE2 = 100" & vbLf _
+                                       & "   AND TESTE3 <> TESTE4" & vbLf _
+                                       & "   AND TESTE1 < TESTE2" & vbLf _
+                                       & "   AND TESTE2 > TESTE3" & vbLf _
+                                       & "   AND TESTE1 *= TESTE2" & vbLf _
+                                       & "   AND TESTE2 =* TEST4" & vbLf _
+                                       & "   AND TESTE2 <= TESTE1"
 
         Assert.AreEqual(retornoEsperado, retorno)
     End Sub
@@ -125,21 +134,21 @@ Imports SQL_Indenter.BLL
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_04_1()
         Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_04())
 
-        Dim scriptSql As String = "SELECT   TESTE1,  TESTE2 , TESTE3,    TESTE4   FROM  TABELA WHERE TESTE1   >=1  AND TESTE2=100  AND   TESTE3    <>TESTE4    AND  TESTE1<TESTE2 AND TESTE2>  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
+        Const scriptSql As String = "SELECT   TESTE1,  TESTE2 , TESTE3,    TESTE4   FROM  TABELA WHERE TESTE1   >=1  AND TESTE2=100  AND   TESTE3    <>TESTE4    AND  TESTE1<TESTE2 AND TESTE2>  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
-        Dim retornoEsperado As String = "SELECT TESTE1" & vbLf _
-                                      & "      ,TESTE2" & vbLf _
-                                      & "      ,TESTE3" & vbLf _
-                                      & "      ,TESTE4" & vbLf _
-                                      & "  FROM TABELA" & vbLf _
-                                      & " WHERE TESTE1 >= 1" & vbLf _
-                                      & "   AND TESTE2 = 100" & vbLf _
-                                      & "   AND TESTE3 <> TESTE4" & vbLf _
-                                      & "   AND TESTE1 < TESTE2" & vbLf _
-                                      & "   AND TESTE2 > TESTE3" & vbLf _
-                                      & "   AND TESTE1 *= TESTE2" & vbLf _
-                                      & "   AND TESTE2 =* TEST4" & vbLf _
-                                      & "   AND TESTE2 <= TESTE1"
+        Const retornoEsperado As String = "SELECT TESTE1" & vbLf _
+                                       & "      ,TESTE2" & vbLf _
+                                       & "      ,TESTE3" & vbLf _
+                                       & "      ,TESTE4" & vbLf _
+                                       & "  FROM TABELA" & vbLf _
+                                       & " WHERE TESTE1 >= 1" & vbLf _
+                                       & "   AND TESTE2 = 100" & vbLf _
+                                       & "   AND TESTE3 <> TESTE4" & vbLf _
+                                       & "   AND TESTE1 < TESTE2" & vbLf _
+                                       & "   AND TESTE2 > TESTE3" & vbLf _
+                                       & "   AND TESTE1 *= TESTE2" & vbLf _
+                                       & "   AND TESTE2 =* TEST4" & vbLf _
+                                       & "   AND TESTE2 <= TESTE1"
 
         Assert.AreEqual(retornoEsperado, retorno)
     End Sub
@@ -147,21 +156,49 @@ Imports SQL_Indenter.BLL
     <TestMethod()> Public Sub IndentarSelectSimples_Cenario_05()
         Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_05())
 
-        Dim scriptSql As String = "SELECT   TESTE1,  TESTE2 , TESTE3,    TESTE4   FROM  TABELA WHERE TESTE1   >=1  AND TESTE2=100  AND   TESTE3    <>TESTE4    AND  TESTE1<TESTE2 AND TESTE2>  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
+        Const scriptSql As String = "SELECT   TESTE1,  TESTE2 , TESTE3,    TESTE4   FROM  TABELA WHERE TESTE1   >=1  AND TESTE2=100  AND   TESTE3    <>TESTE4    AND  TESTE1<TESTE2 AND TESTE2>  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1"
         Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
-        Dim retornoEsperado As String = "SELECT TESTE1," & vbLf _
-                                      & "       TESTE2," & vbLf _
-                                      & "       TESTE3," & vbLf _
-                                      & "       TESTE4" & vbLf _
-                                      & "  FROM TABELA" & vbLf _
-                                      & " WHERE TESTE1>=1" & vbLf _
-                                      & "   AND TESTE2=100" & vbLf _
-                                      & "   AND TESTE3<>TESTE4" & vbLf _
-                                      & "   AND TESTE1<TESTE2" & vbLf _
-                                      & "   AND TESTE2>TESTE3" & vbLf _
-                                      & "   AND TESTE1*=TESTE2" & vbLf _
-                                      & "   AND TESTE2=*TEST4" & vbLf _
-                                      & "   AND TESTE2<=TESTE1"
+        Const retornoEsperado As String = "SELECT TESTE1," & vbLf _
+                                       & "       TESTE2," & vbLf _
+                                       & "       TESTE3," & vbLf _
+                                       & "       TESTE4" & vbLf _
+                                       & "  FROM TABELA" & vbLf _
+                                       & " WHERE TESTE1>=1" & vbLf _
+                                       & "   AND TESTE2=100" & vbLf _
+                                       & "   AND TESTE3<>TESTE4" & vbLf _
+                                       & "   AND TESTE1<TESTE2" & vbLf _
+                                       & "   AND TESTE2>TESTE3" & vbLf _
+                                       & "   AND TESTE1*=TESTE2" & vbLf _
+                                       & "   AND TESTE2=*TEST4" & vbLf _
+                                       & "   AND TESTE2<=TESTE1"
+
+        Assert.AreEqual(retornoEsperado, retorno)
+    End Sub
+
+    <TestMethod()> Public Sub IndentarSelectSimples_Cenario_06()
+        Dim indentador As New IndentadorBLL(ObterParametrosInterface_Cenario_06())
+
+        Const scriptSql As String = "SELECT   TESTE1,  TESTE2 , TESTE3,    TESTE4   FROM  TABELA WHERE TESTE1   >=1  AND TESTE2=100  AND   TESTE3    <>TESTE4    AND  TESTE1<TESTE2 AND TESTE2>  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2<=TESTE1   GROUP BY    TESTE1,  TESTE2,    TESTE3   ORDER BY     TESTE1, TESTE2 HAVING COUNT(1) > 0"
+        Dim retorno As String = indentador.IndentarScriptSql(scriptSql)
+        Const retornoEsperado As String = "  SELECT TESTE1," & vbLf _
+                                        & "         TESTE2," & vbLf _
+                                        & "         TESTE3," & vbLf _
+                                        & "         TESTE4" & vbLf _
+                                        & "    FROM TABELA" & vbLf _
+                                        & "   WHERE TESTE1 >= 1" & vbLf _
+                                        & "     AND TESTE2 = 100" & vbLf _
+                                        & "     AND TESTE3 <> TESTE4" & vbLf _
+                                        & "     AND TESTE1 < TESTE2" & vbLf _
+                                        & "     AND TESTE2 > TESTE3" & vbLf _
+                                        & "     AND TESTE1 *= TESTE2" & vbLf _
+                                        & "     AND TESTE2 =* TEST4" & vbLf _
+                                        & "     AND TESTE2 <= TESTE1" & vbLf _
+                                        & "GROUP BY TESTE1," & vbLf _
+                                        & "         TESTE2," & vbLf _
+                                        & "         TESTE3" & vbLf _
+                                        & "ORDER BY TESTE1," & vbLf _
+                                        & "         TESTE2" & vbLf _
+                                        & "  HAVING COUNT(1) > 0"
 
         Assert.AreEqual(retornoEsperado, retorno)
     End Sub

@@ -12,7 +12,11 @@
 #End Region
 
     Public Const COLUMN As String = "COLUMN"
-
+    Public Const COLUMN_WITH_FUNCTION_START As String = "COLUMN_WITH_FUNCTION_START"
+    Public Const COLUMN_WITH_FUNCTION_COMPLETE As String = "COLUMN_WITH_FUNCTION_COMPLETE"
+    Public Const COLUMN_FUNCTION_PARAMETER As String = "COLUMN_FUNCTION_PARAMETER"
+    Public Const COLUMN_WITH_FUNCTION_END As String = "COLUMN_WITH_FUNCTION_END"
+    
 #Region "Spaces"
     Public Const SELECT_SPACES As Integer = 7
     Public Const FROM_SPACES As Integer = 2

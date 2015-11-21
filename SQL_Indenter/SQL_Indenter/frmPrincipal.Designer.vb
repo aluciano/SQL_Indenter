@@ -33,6 +33,7 @@ Partial Class frmPrincipal
         Me.rdbVirgulaFinalLinha = New System.Windows.Forms.RadioButton()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.btnFormatar = New System.Windows.Forms.Button()
+        Me.chkQuebrarLinhaACadaParametroFuncao = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.grpQuebrarLinhaACadaColuna.SuspendLayout()
@@ -64,6 +65,7 @@ Partial Class frmPrincipal
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.chkQuebrarLinhaACadaParametroFuncao)
         Me.TabPage1.Controls.Add(Me.chkSepararOperadoresLogicosComUmEspaco)
         Me.TabPage1.Controls.Add(Me.chkQuebrarLinhaACadaColuna)
         Me.TabPage1.Controls.Add(Me.grpQuebrarLinhaACadaColuna)
@@ -151,6 +153,18 @@ Partial Class frmPrincipal
         Me.btnFormatar.Text = "Formatar"
         Me.btnFormatar.UseVisualStyleBackColor = True
         '
+        'chkQuebrarLinhaACadaParametroFuncao
+        '
+        Me.chkQuebrarLinhaACadaParametroFuncao.AutoSize = True
+        Me.chkQuebrarLinhaACadaParametroFuncao.Checked = True
+        Me.chkQuebrarLinhaACadaParametroFuncao.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkQuebrarLinhaACadaParametroFuncao.Location = New System.Drawing.Point(205, 29)
+        Me.chkQuebrarLinhaACadaParametroFuncao.Name = "chkQuebrarLinhaACadaParametroFuncao"
+        Me.chkQuebrarLinhaACadaParametroFuncao.Size = New System.Drawing.Size(234, 17)
+        Me.chkQuebrarLinhaACadaParametroFuncao.TabIndex = 7
+        Me.chkQuebrarLinhaACadaParametroFuncao.Text = "Quebrar Linha a cada Parâmetro de Função"
+        Me.chkQuebrarLinhaACadaParametroFuncao.UseVisualStyleBackColor = True
+        '
         'frmPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -182,4 +196,5 @@ Partial Class frmPrincipal
     Friend WithEvents rdbVirgulaInicioLinha As RadioButton
     Friend WithEvents rdbVirgulaFinalLinha As RadioButton
     Friend WithEvents chkSepararOperadoresLogicosComUmEspaco As CheckBox
+    Friend WithEvents chkQuebrarLinhaACadaParametroFuncao As System.Windows.Forms.CheckBox
 End Class

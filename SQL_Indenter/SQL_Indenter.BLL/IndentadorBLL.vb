@@ -17,6 +17,7 @@ Public Class IndentadorBLL
         scriptSql = RemoverQuebrasDeLinha(scriptSql)
         Dim sqlList As List(Of String) = ConverterScriptEmListaDeStatements(scriptSql)
         sqlList = QuebrarLinhaACadaColuna(sqlList)
+        sqlList = QuebrarLinhaParametrosFuncao(sqlList)
         sqlList = SomenteUmEspacoAposStatement(sqlList)
         sqlList = SepararOperadoresLogicosComUmEspaco(sqlList)
 
@@ -110,6 +111,7 @@ Public Class IndentadorBLL
         Dim existeGroupByOrderBy As Boolean = sqlList.Any(Function(p) p.Contains(GROUPBY_STATEMENT) OrElse p.Contains(ORDERBY_STATEMENT))
         Dim orderBySpaces As Integer
         If existeGroupByOrderBy Then orderBySpaces = 2
+        Dim indexFunctionStart As Integer
 
         For index = 0 To sqlList.Count - 1
             sql = sqlList(index).Trim()
@@ -119,8 +121,12 @@ Public Class IndentadorBLL
             Select Case statementDetected
                 Case SELECT_STATEMENT
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces)
-                Case COLUMN
+                Case COLUMN, COLUMN_WITH_FUNCTION_COMPLETE, COLUMN_WITH_FUNCTION_START
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + SELECT_SPACES + virgula)
+                    indexFunctionStart = index
+                Case COLUMN_FUNCTION_PARAMETER, COLUMN_WITH_FUNCTION_END
+                    Dim qtdCaracteresNomeFunction As Integer = sqlList(indexFunctionStart).IndexOf("(") + 1
+                    sqlList(index) = sql.PadLeft(sql.Length + qtdCaracteresNomeFunction)
                 Case FROM_STATEMENT
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + FROM_SPACES)
                 Case WHERE_STATEMENT
@@ -146,11 +152,28 @@ Public Class IndentadorBLL
         If txtSql.Contains(ORDERBY_STATEMENT) Then Return ORDERBY_STATEMENT
         If txtSql.Contains(HAVING_STATEMENT) Then Return HAVING_STATEMENT
 
+        If lastDetectedStatement = COLUMN_WITH_FUNCTION_START Or
+           lastDetectedStatement = COLUMN_FUNCTION_PARAMETER Then
+            If txtSql.Count(Function(p) p = ")") > txtSql.Count(Function(p) p = "(") Then
+                Return COLUMN_WITH_FUNCTION_END
+            Else
+                Return COLUMN_FUNCTION_PARAMETER
+            End If
+        End If
+
         If lastDetectedStatement = SELECT_STATEMENT OrElse
            lastDetectedStatement = GROUPBY_STATEMENT OrElse
            lastDetectedStatement = ORDERBY_STATEMENT OrElse
+           lastDetectedStatement = COLUMN_WITH_FUNCTION_END OrElse
+           lastDetectedStatement = COLUMN_WITH_FUNCTION_COMPLETE OrElse
            lastDetectedStatement = COLUMN Then
-            If Not txtSql.Contains(FROM_STATEMENT) Then
+            If txtSql.Contains("(") Then
+                If txtSql.Count(Function(p) p = "(") = txtSql.Count(Function(p) p = ")") Then
+                    Return COLUMN_WITH_FUNCTION_COMPLETE
+                Else
+                    Return COLUMN_WITH_FUNCTION_START
+                End If
+            Else
                 Return COLUMN
             End If
         End If
@@ -207,7 +230,7 @@ Public Class IndentadorBLL
         Return sqlList
     End Function
 
-    Private Shared Function SomenteUmEspacoAposStatement(sqlList As List(Of String)) As List(Of String)
+    Private Function SomenteUmEspacoAposStatement(sqlList As List(Of String)) As List(Of String)
         Dim statementDetected As String = ""
         Dim sql As String
 
@@ -227,6 +250,49 @@ Public Class IndentadorBLL
 
             End Select
         Next
+
+        Return sqlList
+    End Function
+
+    Private Function QuebrarLinhaParametrosFuncao(sqlList As List(Of String)) As List(Of String)
+        Dim statementDetected As String = ""
+        Dim sql As String
+        Dim i As Integer
+        Dim idxUltimaLinha As Integer = sqlList.Count - 1
+
+        While i <= idxUltimaLinha
+            sql = sqlList(i).Trim()
+
+            statementDetected = DetectStatement(sql, statementDetected)
+
+            Select Case statementDetected
+                Case COLUMN_WITH_FUNCTION_START
+                    If Not ObterValorParametro("QuebrarLinhaACadaParametroFuncao") Then
+                        If sqlList(i).Count(Function(p) p = "(") > sqlList(i).Count(Function(p) p = ")") Then
+
+                            Dim j As Integer = i + 1
+                            While sqlList(j).Count(Function(p) p = "(") >= sqlList(j).Count(Function(p) p = ")")
+                                sqlList(i) &= " " & sqlList(j)
+                                j += 1
+                            End While
+
+                            sqlList(i) &= " " & sqlList(j)
+
+                            For k = i + 1 To j
+                                sqlList.RemoveAt(i + 1)
+                            Next
+                        End If
+
+                    End If
+
+                Case Else
+                    sqlList(i) = sql
+
+            End Select
+
+            idxUltimaLinha = sqlList.Count - 1
+            i += 1
+        End While
 
         Return sqlList
     End Function

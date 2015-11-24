@@ -107,7 +107,7 @@ Public Class IndentadorBLL
     Private Function Indentar(sqlList As List(Of String)) As String
         Dim statementDetected As String = ""
         Dim sql As String
-        Dim virgula As Integer = If(ObterValorParametro("VirgulaInicioLinha"), -1, 0)
+        Dim virgula As Integer = If(ObterValorParametro("VirgulaInicioLinha"), -2, 0)
         Dim existeGroupByOrderBy As Boolean = sqlList.Any(Function(p) p.Contains(GROUPBY_STATEMENT) OrElse p.Contains(ORDERBY_STATEMENT))
         Dim orderBySpaces As Integer
         If existeGroupByOrderBy Then orderBySpaces = 2
@@ -119,13 +119,16 @@ Public Class IndentadorBLL
             statementDetected = DetectStatement(sql, statementDetected)
 
             Select Case statementDetected
-                Case SELECT_STATEMENT
+                Case SELECT_STATEMENT, SELECT_STATEMENT_WITH_FUNCTION_START, SELECT_STATEMENT_WITH_FUNCTION_COMPLETE
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces)
                 Case COLUMN, COLUMN_WITH_FUNCTION_COMPLETE, COLUMN_WITH_FUNCTION_START
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + SELECT_SPACES + virgula)
                     indexFunctionStart = index
                 Case COLUMN_FUNCTION_PARAMETER, COLUMN_WITH_FUNCTION_END
-                    Dim qtdCaracteresNomeFunction As Integer = sqlList(indexFunctionStart).IndexOf("(") + 1
+                    Dim qtdCaracteresNomeFunction As Integer = sqlList(indexFunctionStart).IndexOf("(", StringComparison.Ordinal)
+                    If Not ObterValorParametro("VirgulaInicioLinha") Then
+                        qtdCaracteresNomeFunction += 1
+                    End If
                     sqlList(index) = sql.PadLeft(sql.Length + qtdCaracteresNomeFunction)
                 Case FROM_STATEMENT
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + FROM_SPACES)
@@ -143,14 +146,60 @@ Public Class IndentadorBLL
         Return String.Join(vbLf, sqlList.ToArray())
     End Function
 
-    Private Shared Function DetectStatement(txtSql As String, lastDetectedStatement As String) As String
-        If txtSql.Contains(SELECT_STATEMENT) Then Return SELECT_STATEMENT
+    Private Function DetectStatement(txtSql As String, lastDetectedStatement As String) As String
+        If txtSql.Contains(SELECT_STATEMENT) Then
+            If txtSql.Contains("(") Then
+                If txtSql.Count(Function(p) p = "(") = txtSql.Count(Function(p) p = ")") Then
+                    Return SELECT_STATEMENT_WITH_FUNCTION_COMPLETE
+                Else
+                    Return SELECT_STATEMENT_WITH_FUNCTION_START
+                End If
+            Else
+                Return SELECT_STATEMENT
+            End If
+        End If
         If txtSql.Contains(FROM_STATEMENT) Then Return FROM_STATEMENT
         If txtSql.Contains(WHERE_STATEMENT) Then Return WHERE_STATEMENT
         If txtSql.Contains(AND_STATEMENT) Then Return AND_STATEMENT
-        If txtSql.Contains(GROUPBY_STATEMENT) Then Return GROUPBY_STATEMENT
+        If txtSql.Contains(GROUPBY_STATEMENT) Then
+            If txtSql.Contains(GROUPBY_STATEMENT) Then
+                If txtSql.Contains("(") Then
+                    If txtSql.Count(Function(p) p = "(") = txtSql.Count(Function(p) p = ")") Then
+                        Return GROUPBY_STATEMENT_WITH_FUNCTION_COMPLETE
+                    Else
+                        Return GROUPBY_STATEMENT_WITH_FUNCTION_START
+                    End If
+                Else
+                    Return GROUPBY_STATEMENT
+                End If
+            End If
+        End If
         If txtSql.Contains(ORDERBY_STATEMENT) Then Return ORDERBY_STATEMENT
         If txtSql.Contains(HAVING_STATEMENT) Then Return HAVING_STATEMENT
+
+        If lastDetectedStatement = SELECT_STATEMENT_WITH_FUNCTION_START OrElse
+           lastDetectedStatement = SELECT_STATEMENT_WITH_FUNCTION_COMPLETE OrElse
+           lastDetectedStatement = GROUPBY_STATEMENT_WITH_FUNCTION_START OrElse
+           lastDetectedStatement = GROUPBY_STATEMENT_WITH_FUNCTION_COMPLETE OrElse
+           lastDetectedStatement = COLUMN_WITH_FUNCTION_START Then
+            If Not ObterValorParametro("QuebrarLinhaACadaParametroFuncao") Then
+                If txtSql.Contains("(") Then
+                    If txtSql.Count(Function(p) p = "(") = txtSql.Count(Function(p) p = ")") Then
+                        Return COLUMN_WITH_FUNCTION_COMPLETE
+                    Else
+                        Return COLUMN_WITH_FUNCTION_START
+                    End If
+                Else
+                    Return COLUMN
+                End If
+            Else
+                If txtSql.Count(Function(p) p = ")") > txtSql.Count(Function(p) p = "(") Then
+                    Return COLUMN_WITH_FUNCTION_END
+                Else
+                    Return COLUMN_FUNCTION_PARAMETER
+                End If
+            End If
+        End If
 
         If lastDetectedStatement = COLUMN_WITH_FUNCTION_START Or
            lastDetectedStatement = COLUMN_FUNCTION_PARAMETER Then
@@ -183,6 +232,7 @@ Public Class IndentadorBLL
 
     Private Function QuebrarLinhaACadaColuna(sqlList As List(Of String)) As List(Of String)
         If ObterValorParametro("QuebrarLinhaACadaColuna") Then
+            Dim statementDetected As String = ""
             Dim i As Integer = 0
             Dim idxUltimaLinha As Integer = sqlList.Count - 1
             While i <= idxUltimaLinha
@@ -198,7 +248,7 @@ Public Class IndentadorBLL
                     If ObterValorParametro("VirgulaInicioLinha") Then
                         For j = 0 To selectColumnsList.Count - 1
                             selectColumnsList(j) = selectColumnsList(j).Trim()
-                            selectColumnsList(j) = "," & selectColumnsList(j)
+                            selectColumnsList(j) = ", " & selectColumnsList(j)
                         Next
                     Else
                         sqlList(i) = sqlList(i).TrimEnd() & ","
@@ -244,6 +294,10 @@ Public Class IndentadorBLL
                     While sqlList(i).Contains(statementDetected & "  ")
                         sqlList(i) = sqlList(i).Replace(statementDetected & "  ", statementDetected & " ")
                     End While
+                Case SELECT_STATEMENT_WITH_FUNCTION_START, SELECT_STATEMENT_WITH_FUNCTION_COMPLETE
+                    While sqlList(i).Contains(SELECT_STATEMENT & "  ")
+                        sqlList(i) = sqlList(i).Replace(SELECT_STATEMENT & "  ", SELECT_STATEMENT & " ")
+                    End While
 
                 Case Else
                     sqlList(i) = sql
@@ -266,23 +320,37 @@ Public Class IndentadorBLL
             statementDetected = DetectStatement(sql, statementDetected)
 
             Select Case statementDetected
-                Case COLUMN_WITH_FUNCTION_START
+                Case COLUMN_WITH_FUNCTION_START, SELECT_STATEMENT_WITH_FUNCTION_START, GROUPBY_STATEMENT_WITH_FUNCTION_START
                     If Not ObterValorParametro("QuebrarLinhaACadaParametroFuncao") Then
                         If sqlList(i).Count(Function(p) p = "(") > sqlList(i).Count(Function(p) p = ")") Then
 
                             Dim j As Integer = i + 1
                             While sqlList(j).Count(Function(p) p = "(") >= sqlList(j).Count(Function(p) p = ")")
                                 sqlList(i) &= " " & sqlList(j)
+
+                                If ObterValorParametro("VirgulaInicioLinha") Then
+                                    sqlList(i) = sqlList(i).Replace(" , ", ", ")
+                                End If
+
                                 j += 1
                             End While
 
                             sqlList(i) &= " " & sqlList(j)
+
+                            If ObterValorParametro("VirgulaInicioLinha") Then
+                                sqlList(i) = sqlList(i).Replace(" , ", ", ")
+                            End If
 
                             For k = i + 1 To j
                                 sqlList.RemoveAt(i + 1)
                             Next
                         End If
 
+                    End If
+
+                Case COLUMN_FUNCTION_PARAMETER, COLUMN_WITH_FUNCTION_END
+                    If ObterValorParametro("QuebrarLinhaACadaParametroFuncao") AndAlso ObterValorParametro("VirgulaInicioLinha") Then
+                        sqlList(i) = sqlList(i).Replace(", ", ",")
                     End If
 
                 Case Else

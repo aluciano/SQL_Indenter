@@ -45,9 +45,9 @@ Partial Class frmPrincipal
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtSql.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSql.Location = New System.Drawing.Point(12, 130)
+        Me.txtSql.Location = New System.Drawing.Point(12, 147)
         Me.txtSql.Name = "txtSql"
-        Me.txtSql.Size = New System.Drawing.Size(761, 430)
+        Me.txtSql.Size = New System.Drawing.Size(761, 413)
         Me.txtSql.TabIndex = 0
         Me.txtSql.Text = resources.GetString("txtSql.Text")
         '
@@ -60,19 +60,18 @@ Partial Class frmPrincipal
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(761, 112)
+        Me.TabControl1.Size = New System.Drawing.Size(761, 129)
         Me.TabControl1.TabIndex = 1
         '
         'TabPage1
         '
-        Me.TabPage1.Controls.Add(Me.chkQuebrarLinhaACadaParametroFuncao)
         Me.TabPage1.Controls.Add(Me.chkSepararOperadoresLogicosComUmEspaco)
         Me.TabPage1.Controls.Add(Me.chkQuebrarLinhaACadaColuna)
         Me.TabPage1.Controls.Add(Me.grpQuebrarLinhaACadaColuna)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(753, 86)
+        Me.TabPage1.Size = New System.Drawing.Size(753, 103)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "SELECT"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -82,7 +81,7 @@ Partial Class frmPrincipal
         Me.chkSepararOperadoresLogicosComUmEspaco.AutoSize = True
         Me.chkSepararOperadoresLogicosComUmEspaco.Checked = True
         Me.chkSepararOperadoresLogicosComUmEspaco.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSepararOperadoresLogicosComUmEspaco.Location = New System.Drawing.Point(205, 6)
+        Me.chkSepararOperadoresLogicosComUmEspaco.Location = New System.Drawing.Point(262, 6)
         Me.chkSepararOperadoresLogicosComUmEspaco.Name = "chkSepararOperadoresLogicosComUmEspaco"
         Me.chkSepararOperadoresLogicosComUmEspaco.Size = New System.Drawing.Size(233, 17)
         Me.chkSepararOperadoresLogicosComUmEspaco.TabIndex = 6
@@ -103,11 +102,12 @@ Partial Class frmPrincipal
         '
         'grpQuebrarLinhaACadaColuna
         '
+        Me.grpQuebrarLinhaACadaColuna.Controls.Add(Me.chkQuebrarLinhaACadaParametroFuncao)
         Me.grpQuebrarLinhaACadaColuna.Controls.Add(Me.rdbVirgulaInicioLinha)
         Me.grpQuebrarLinhaACadaColuna.Controls.Add(Me.rdbVirgulaFinalLinha)
         Me.grpQuebrarLinhaACadaColuna.Location = New System.Drawing.Point(15, 6)
         Me.grpQuebrarLinhaACadaColuna.Name = "grpQuebrarLinhaACadaColuna"
-        Me.grpQuebrarLinhaACadaColuna.Size = New System.Drawing.Size(184, 72)
+        Me.grpQuebrarLinhaACadaColuna.Size = New System.Drawing.Size(241, 91)
         Me.grpQuebrarLinhaACadaColuna.TabIndex = 5
         Me.grpQuebrarLinhaACadaColuna.TabStop = False
         '
@@ -138,7 +138,7 @@ Partial Class frmPrincipal
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(753, 187)
+        Me.TabPage2.Size = New System.Drawing.Size(753, 86)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "TabPage2"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -158,10 +158,10 @@ Partial Class frmPrincipal
         Me.chkQuebrarLinhaACadaParametroFuncao.AutoSize = True
         Me.chkQuebrarLinhaACadaParametroFuncao.Checked = True
         Me.chkQuebrarLinhaACadaParametroFuncao.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkQuebrarLinhaACadaParametroFuncao.Location = New System.Drawing.Point(205, 29)
+        Me.chkQuebrarLinhaACadaParametroFuncao.Location = New System.Drawing.Point(7, 69)
         Me.chkQuebrarLinhaACadaParametroFuncao.Name = "chkQuebrarLinhaACadaParametroFuncao"
         Me.chkQuebrarLinhaACadaParametroFuncao.Size = New System.Drawing.Size(234, 17)
-        Me.chkQuebrarLinhaACadaParametroFuncao.TabIndex = 7
+        Me.chkQuebrarLinhaACadaParametroFuncao.TabIndex = 8
         Me.chkQuebrarLinhaACadaParametroFuncao.Text = "Quebrar Linha a cada Parâmetro de Função"
         Me.chkQuebrarLinhaACadaParametroFuncao.UseVisualStyleBackColor = True
         '

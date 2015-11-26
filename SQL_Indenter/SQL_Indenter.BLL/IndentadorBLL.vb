@@ -35,23 +35,25 @@ Public Class IndentadorBLL
                 Dim tableList As New List(Of String)
                 tableList.AddRange(sqlList(i).Split(New Char() {","}, StringSplitOptions.RemoveEmptyEntries))
                 tableList.RemoveAt(0)
-                sqlList(i) = sqlList(i).Substring(0, sqlList(i).IndexOf(",", StringComparison.Ordinal))
-                sqlList(i) = sqlList(i).Trim()
+                If tableList.Any() Then
+                    sqlList(i) = sqlList(i).Substring(0, sqlList(i).IndexOf(",", StringComparison.Ordinal))
+                    sqlList(i) = sqlList(i).Trim()
 
-                If ObterValorParametro("VirgulaInicioLinha") Then
-                    For j = 0 To tableList.Count - 1
-                        tableList(j) = tableList(j).Trim()
-                        tableList(j) = ", " & tableList(j)
-                    Next
-                Else
-                    sqlList(i) = sqlList(i).TrimEnd() & ","
-                    For j = 0 To tableList.Count - 2
-                        tableList(j) = tableList(j).Trim()
-                        tableList(j) = tableList(j) & ","
-                    Next
+                    If ObterValorParametro("VirgulaInicioLinha") Then
+                        For j = 0 To tableList.Count - 1
+                            tableList(j) = tableList(j).Trim()
+                            tableList(j) = ", " & tableList(j)
+                        Next
+                    Else
+                        sqlList(i) = sqlList(i).TrimEnd() & ","
+                        For j = 0 To tableList.Count - 2
+                            tableList(j) = tableList(j).Trim()
+                            tableList(j) = tableList(j) & ","
+                        Next
+                    End If
+
+                    sqlList.InsertRange(i + 1, tableList)
                 End If
-
-                sqlList.InsertRange(i + 1, tableList)
             End If
 
             idxUltimaLinha = sqlList.Count - 1

@@ -32,7 +32,7 @@ Namespace My
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()> _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.SQL_Indenter.frmPrincipal
+            Me.MainForm = Global.SQL_Indenter.FrmPrincipal
         End Sub
     End Class
 End Namespace

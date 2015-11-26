@@ -12,6 +12,8 @@
     Public Const COLUMN_WITH_FUNCTION_END As String = "COLUMN_WITH_FUNCTION_END"
 
     Public Const FROM_STATEMENT As String = "FROM"
+    Public Const TABELA As String = "TABELA"
+    
     Public Const WHERE_STATEMENT As String = "WHERE"
     Public Const AND_STATEMENT As String = "AND"
 
@@ -31,6 +33,7 @@
     
 #Region "Spaces"
     Public Const SELECT_SPACES As Integer = 7
+    Public Const TABELA_SPACES As Integer = 7
     Public Const FROM_SPACES As Integer = 2
     Public Const WHERE_SPACES As Integer = 1
     Public Const AND_SPACES As Integer = 3

@@ -1,7 +1,7 @@
 ﻿Imports SQL_Indenter.BEL
 Imports SQL_Indenter.BLL
 
-Public Class frmPrincipal
+Public Class FrmPrincipal
 
     Private Sub btnFormatar_Click(sender As Object, e As EventArgs) Handles btnFormatar.Click
 
@@ -18,7 +18,7 @@ Public Class frmPrincipal
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", rdbVirgulaInicioLinha.Checked))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", chkSepararOperadoresLogicosComUmEspaco.Checked))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", chkQuebrarLinhaACadaParametroFuncao.Checked))
-        
+
         Return parametrosInterface
     End Function
 

@@ -21,9 +21,44 @@ Public Class IndentadorBLL
         sqlList = QuebrarLinhaParametrosFuncao(sqlList)
         sqlList = SomenteUmEspacoAposStatement(sqlList)
         sqlList = SepararOperadoresLogicosComUmEspaco(sqlList)
+        sqlList = QuebrarLinhaACadaTabela(sqlList)
 
         Return Indentar(sqlList)
 
+    End Function
+
+    Private Function QuebrarLinhaACadaTabela(ByVal sqlList As List(Of String)) As List(Of String)
+        Dim i As Integer = 0
+        Dim idxUltimaLinha As Integer = sqlList.Count - 1
+        While i <= idxUltimaLinha
+            If sqlList(i).Contains(FROM_STATEMENT) Then
+                Dim tableList As New List(Of String)
+                tableList.AddRange(sqlList(i).Split(New Char() {","}, StringSplitOptions.RemoveEmptyEntries))
+                tableList.RemoveAt(0)
+                sqlList(i) = sqlList(i).Substring(0, sqlList(i).IndexOf(",", StringComparison.Ordinal))
+                sqlList(i) = sqlList(i).Trim()
+
+                If ObterValorParametro("VirgulaInicioLinha") Then
+                    For j = 0 To tableList.Count - 1
+                        tableList(j) = tableList(j).Trim()
+                        tableList(j) = ", " & tableList(j)
+                    Next
+                Else
+                    sqlList(i) = sqlList(i).TrimEnd() & ","
+                    For j = 0 To tableList.Count - 2
+                        tableList(j) = tableList(j).Trim()
+                        tableList(j) = tableList(j) & ","
+                    Next
+                End If
+
+                sqlList.InsertRange(i + 1, tableList)
+            End If
+
+            idxUltimaLinha = sqlList.Count - 1
+            i += 1
+        End While
+
+        Return sqlList
     End Function
 
     Private Function SepararOperadoresLogicosComUmEspaco(sqlList As List(Of String)) As List(Of String)
@@ -128,6 +163,8 @@ Public Class IndentadorBLL
                 Case COLUMN, COLUMN_WITH_FUNCTION_COMPLETE, COLUMN_WITH_FUNCTION_START
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + SELECT_SPACES + virgula)
                     indexFunctionStart = index
+                Case TABELA
+                    sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + TABELA_SPACES + virgula)
                 Case COLUMN_FUNCTION_PARAMETER, COLUMN_WITH_FUNCTION_END
                     Dim qtdCaracteresNomeFunction As Integer = sqlList(indexFunctionStart).IndexOf("(", StringComparison.Ordinal)
                     If Not ObterValorParametro("VirgulaInicioLinha") Then
@@ -249,12 +286,16 @@ Public Class IndentadorBLL
             End If
         End If
 
+        If lastDetectedStatement = FROM_STATEMENT Or
+           lastDetectedStatement = TABELA Then
+            Return TABELA
+        End If
+
         Return String.Empty
     End Function
 
     Private Function QuebrarLinhaACadaColuna(sqlList As List(Of String)) As List(Of String)
         If ObterValorParametro("QuebrarLinhaACadaColuna") Then
-            Dim statementDetected As String = ""
             Dim i As Integer = 0
             Dim idxUltimaLinha As Integer = sqlList.Count - 1
             While i <= idxUltimaLinha

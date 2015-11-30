@@ -26,6 +26,11 @@ Partial Class FrmPrincipal
         Me.txtSql = New System.Windows.Forms.RichTextBox()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.chkUtilizarAClausulaAS = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rdbAlinharComOAlias = New System.Windows.Forms.RadioButton()
+        Me.rdbAlinharComATabela = New System.Windows.Forms.RadioButton()
+        Me.chkAlinharAliasDasTabelas = New System.Windows.Forms.CheckBox()
         Me.chkSepararOperadoresLogicosComUmEspaco = New System.Windows.Forms.CheckBox()
         Me.chkQuebrarLinhaACadaColuna = New System.Windows.Forms.CheckBox()
         Me.grpQuebrarLinhaACadaColuna = New System.Windows.Forms.GroupBox()
@@ -34,15 +39,10 @@ Partial Class FrmPrincipal
         Me.rdbVirgulaFinalLinha = New System.Windows.Forms.RadioButton()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.btnFormatar = New System.Windows.Forms.Button()
-        Me.chkAlinharAliasDasTabelas = New System.Windows.Forms.CheckBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.rdbAlinharComOAlias = New System.Windows.Forms.RadioButton()
-        Me.rdbAlinharComATabela = New System.Windows.Forms.RadioButton()
-        Me.chkUtilizarAClausulaAS = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        Me.grpQuebrarLinhaACadaColuna.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.grpQuebrarLinhaACadaColuna.SuspendLayout()
         Me.SuspendLayout()
         '
         'txtSql
@@ -84,6 +84,62 @@ Partial Class FrmPrincipal
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "SELECT"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'chkUtilizarAClausulaAS
+        '
+        Me.chkUtilizarAClausulaAS.AutoSize = True
+        Me.chkUtilizarAClausulaAS.Checked = True
+        Me.chkUtilizarAClausulaAS.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkUtilizarAClausulaAS.Location = New System.Drawing.Point(508, 6)
+        Me.chkUtilizarAClausulaAS.Name = "chkUtilizarAClausulaAS"
+        Me.chkUtilizarAClausulaAS.Size = New System.Drawing.Size(125, 17)
+        Me.chkUtilizarAClausulaAS.TabIndex = 9
+        Me.chkUtilizarAClausulaAS.Text = "Utilizar a cláusula AS"
+        Me.chkUtilizarAClausulaAS.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.rdbAlinharComOAlias)
+        Me.GroupBox1.Controls.Add(Me.rdbAlinharComATabela)
+        Me.GroupBox1.Location = New System.Drawing.Point(501, 6)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(145, 71)
+        Me.GroupBox1.TabIndex = 10
+        Me.GroupBox1.TabStop = False
+        '
+        'rdbAlinharComOAlias
+        '
+        Me.rdbAlinharComOAlias.AutoSize = True
+        Me.rdbAlinharComOAlias.Location = New System.Drawing.Point(6, 46)
+        Me.rdbAlinharComOAlias.Name = "rdbAlinharComOAlias"
+        Me.rdbAlinharComOAlias.Size = New System.Drawing.Size(114, 17)
+        Me.rdbAlinharComOAlias.TabIndex = 6
+        Me.rdbAlinharComOAlias.Text = "Alinhar com o Alias"
+        Me.rdbAlinharComOAlias.UseVisualStyleBackColor = True
+        '
+        'rdbAlinharComATabela
+        '
+        Me.rdbAlinharComATabela.AutoSize = True
+        Me.rdbAlinharComATabela.Checked = True
+        Me.rdbAlinharComATabela.Location = New System.Drawing.Point(6, 23)
+        Me.rdbAlinharComATabela.Name = "rdbAlinharComATabela"
+        Me.rdbAlinharComATabela.Size = New System.Drawing.Size(121, 17)
+        Me.rdbAlinharComATabela.TabIndex = 5
+        Me.rdbAlinharComATabela.TabStop = True
+        Me.rdbAlinharComATabela.Text = "Alinhar com a tabela"
+        Me.rdbAlinharComATabela.UseVisualStyleBackColor = True
+        '
+        'chkAlinharAliasDasTabelas
+        '
+        Me.chkAlinharAliasDasTabelas.AutoSize = True
+        Me.chkAlinharAliasDasTabelas.Checked = True
+        Me.chkAlinharAliasDasTabelas.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.chkAlinharAliasDasTabelas.Location = New System.Drawing.Point(262, 29)
+        Me.chkAlinharAliasDasTabelas.Name = "chkAlinharAliasDasTabelas"
+        Me.chkAlinharAliasDasTabelas.Size = New System.Drawing.Size(144, 17)
+        Me.chkAlinharAliasDasTabelas.TabIndex = 7
+        Me.chkAlinharAliasDasTabelas.Text = "Alinhar Alias das Tabelas"
+        Me.chkAlinharAliasDasTabelas.UseVisualStyleBackColor = True
         '
         'chkSepararOperadoresLogicosComUmEspaco
         '
@@ -174,62 +230,6 @@ Partial Class FrmPrincipal
         Me.btnFormatar.Text = "Formatar"
         Me.btnFormatar.UseVisualStyleBackColor = True
         '
-        'chkAlinharAliasDasTabelas
-        '
-        Me.chkAlinharAliasDasTabelas.AutoSize = True
-        Me.chkAlinharAliasDasTabelas.Checked = True
-        Me.chkAlinharAliasDasTabelas.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkAlinharAliasDasTabelas.Location = New System.Drawing.Point(262, 29)
-        Me.chkAlinharAliasDasTabelas.Name = "chkAlinharAliasDasTabelas"
-        Me.chkAlinharAliasDasTabelas.Size = New System.Drawing.Size(144, 17)
-        Me.chkAlinharAliasDasTabelas.TabIndex = 7
-        Me.chkAlinharAliasDasTabelas.Text = "Alinhar Alias das Tabelas"
-        Me.chkAlinharAliasDasTabelas.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.rdbAlinharComOAlias)
-        Me.GroupBox1.Controls.Add(Me.rdbAlinharComATabela)
-        Me.GroupBox1.Location = New System.Drawing.Point(501, 6)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(145, 71)
-        Me.GroupBox1.TabIndex = 10
-        Me.GroupBox1.TabStop = False
-        '
-        'rdbAlinharComOAlias
-        '
-        Me.rdbAlinharComOAlias.AutoSize = True
-        Me.rdbAlinharComOAlias.Location = New System.Drawing.Point(6, 46)
-        Me.rdbAlinharComOAlias.Name = "rdbAlinharComOAlias"
-        Me.rdbAlinharComOAlias.Size = New System.Drawing.Size(114, 17)
-        Me.rdbAlinharComOAlias.TabIndex = 6
-        Me.rdbAlinharComOAlias.Text = "Alinhar com o Alias"
-        Me.rdbAlinharComOAlias.UseVisualStyleBackColor = True
-        '
-        'rdbAlinharComATabela
-        '
-        Me.rdbAlinharComATabela.AutoSize = True
-        Me.rdbAlinharComATabela.Checked = True
-        Me.rdbAlinharComATabela.Location = New System.Drawing.Point(6, 23)
-        Me.rdbAlinharComATabela.Name = "rdbAlinharComATabela"
-        Me.rdbAlinharComATabela.Size = New System.Drawing.Size(121, 17)
-        Me.rdbAlinharComATabela.TabIndex = 5
-        Me.rdbAlinharComATabela.TabStop = True
-        Me.rdbAlinharComATabela.Text = "Alinhar com a tabela"
-        Me.rdbAlinharComATabela.UseVisualStyleBackColor = True
-        '
-        'chkUtilizarAClausulaAS
-        '
-        Me.chkUtilizarAClausulaAS.AutoSize = True
-        Me.chkUtilizarAClausulaAS.Checked = True
-        Me.chkUtilizarAClausulaAS.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkUtilizarAClausulaAS.Location = New System.Drawing.Point(508, 6)
-        Me.chkUtilizarAClausulaAS.Name = "chkUtilizarAClausulaAS"
-        Me.chkUtilizarAClausulaAS.Size = New System.Drawing.Size(125, 17)
-        Me.chkUtilizarAClausulaAS.TabIndex = 9
-        Me.chkUtilizarAClausulaAS.Text = "Utilizar a cláusula AS"
-        Me.chkUtilizarAClausulaAS.UseVisualStyleBackColor = True
-        '
         'FrmPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -245,10 +245,10 @@ Partial Class FrmPrincipal
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
-        Me.grpQuebrarLinhaACadaColuna.ResumeLayout(False)
-        Me.grpQuebrarLinhaACadaColuna.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.grpQuebrarLinhaACadaColuna.ResumeLayout(False)
+        Me.grpQuebrarLinhaACadaColuna.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub

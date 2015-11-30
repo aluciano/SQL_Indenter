@@ -123,14 +123,31 @@ Public Class IndentadorBLL
     End Function
 
     Private Shared Function ConverterScriptEmListaDeStatements(text As String) As List(Of String)
+        While text.Contains("  ")
+            text = text.Replace("  ", " ")
+        End While
+
         text = " " & text
-        text = text.Replace(" " & SELECT_STATEMENT & " ", vbLf & " " & SELECT_STATEMENT & " ")
-        text = text.Replace(" " & FROM_STATEMENT & " ", vbLf & " " & FROM_STATEMENT & " ")
-        text = text.Replace(" " & WHERE_STATEMENT & " ", vbLf & " " & WHERE_STATEMENT & " ")
-        text = text.Replace(" " & AND_STATEMENT & " ", vbLf & " " & AND_STATEMENT & " ")
-        text = text.Replace(" " & GROUPBY_STATEMENT & " ", vbLf & " " & GROUPBY_STATEMENT & " ")
-        text = text.Replace(" " & ORDERBY_STATEMENT & " ", vbLf & " " & ORDERBY_STATEMENT & " ")
-        text = text.Replace(" " & HAVING_STATEMENT & " ", vbLf & " " & HAVING_STATEMENT & " ")
+        text = text.Replace(" " & SELECT_STATEMENT.Trim() & " ", vbLf & " " & SELECT_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & FROM_STATEMENT.Trim() & " ", vbLf & " " & FROM_STATEMENT.Trim() & " ")
+
+        text = text.Replace(" " & INNERJOIN_STATEMENT.Trim() & " ", vbLf & " INNER" & vbLf & JOIN_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & LEFTJOIN_STATEMENT.Trim() & " ", vbLf & " LEFT" & vbLf & JOIN_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & LEFTOUTERJOIN_STATEMENT.Trim() & " ", vbLf & " LEFT OUTER" & vbLf & JOIN_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & RIGHTJOIN_STATEMENT.Trim() & " ", vbLf & " RIGHT" & vbLf & JOIN_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & RIGHTOUTERJOIN_STATEMENT.Trim() & " ", vbLf & " RIGHT OUTER" & vbLf & JOIN_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & FULLJOIN_STATEMENT.Trim() & " ", vbLf & " FULL" & vbLf & JOIN_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & FULLOUTERJOIN_STATEMENT.Trim() & " ", vbLf & " FULL OUTER" & vbLf & JOIN_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & CROSSJOIN_STATEMENT.Trim() & " ", vbLf & " CROSS" & vbLf & JOIN_STATEMENT.Trim() & " ")
+
+        text = text.Replace(" " & JOIN_STATEMENT.Trim() & " ", vbLf & " " & JOIN_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & ON_STATEMENT.Trim() & " ", vbLf & " " & ON_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & WHERE_STATEMENT.Trim() & " ", vbLf & " " & WHERE_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & ANDWHERE_STATEMENT.Trim() & " ", vbLf & " " & ANDWHERE_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & ORWHERE_STATEMENT.Trim() & " ", vbLf & " " & ORWHERE_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & GROUPBY_STATEMENT.Trim() & " ", vbLf & " " & GROUPBY_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & HAVING_STATEMENT.Trim() & " ", vbLf & " " & HAVING_STATEMENT.Trim() & " ")
+        text = text.Replace(" " & ORDERBY_STATEMENT.Trim() & " ", vbLf & " " & ORDERBY_STATEMENT.Trim() & " ")
 
         Dim sqlList As New List(Of String)
         sqlList.AddRange(text.Split(New Char() {vbLf}, StringSplitOptions.RemoveEmptyEntries))
@@ -175,10 +192,20 @@ Public Class IndentadorBLL
                     sqlList(index) = sql.PadLeft(sql.Length + qtdCaracteresNomeFunction)
                 Case FROM_STATEMENT
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + FROM_SPACES)
+                Case INNER_STATEMENT, RIGHT_STATEMENT, RIGHTOUTER_STATEMENT, CROSS_STATEMENT
+                    sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + INNER_SPACES)
+                Case LEFT_STATEMENT, LEFTOUTER_STATEMENT, FULL_STATEMENT, FULLOUTER_STATEMENT, JOIN_STATEMENT
+                    sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + JOIN_SPACES)
+                Case ON_STATEMENT, ORJOIN_STATEMENT
+                    sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + ON_SPACES)
+                Case ANDJOIN_STATEMENT
+                    sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + ANDJOIN_SPACES)
                 Case WHERE_STATEMENT
                     sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + WHERE_SPACES)
-                Case AND_STATEMENT
-                    sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + AND_SPACES)
+                Case ANDWHERE_STATEMENT
+                    sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + ANDWHERE_SPACES)
+                Case ORWHERE_STATEMENT
+                    sqlList(index) = sql.PadLeft(sql.Length + orderBySpaces + ORWHERE_SPACES)
                 Case HAVING_STATEMENT
                     sqlList(index) = sql.PadLeft(sql.Length + HAVING_SPACES)
                 Case Else
@@ -201,10 +228,22 @@ Public Class IndentadorBLL
                 Return SELECT_STATEMENT
             End If
         End If
-        If txtSql.Contains(FROM_STATEMENT) Then Return FROM_STATEMENT
-        If txtSql.Contains(WHERE_STATEMENT) Then Return WHERE_STATEMENT
-        If txtSql.Contains(AND_STATEMENT) Then Return AND_STATEMENT
 
+        If txtSql.Contains(FROM_STATEMENT) Then Return FROM_STATEMENT
+
+        If txtSql.Contains(INNER_STATEMENT) Then Return INNER_STATEMENT
+        If txtSql.Contains(LEFT_STATEMENT) Then Return LEFT_STATEMENT
+        If txtSql.Contains(LEFTOUTER_STATEMENT) Then Return LEFTOUTER_STATEMENT
+        If txtSql.Contains(RIGHT_STATEMENT) Then Return RIGHT_STATEMENT
+        If txtSql.Contains(RIGHTOUTER_STATEMENT) Then Return RIGHTOUTER_STATEMENT
+        If txtSql.Contains(FULL_STATEMENT) Then Return FULL_STATEMENT
+        If txtSql.Contains(FULLOUTER_STATEMENT) Then Return FULLOUTER_STATEMENT
+        If txtSql.Contains(CROSS_STATEMENT) Then Return CROSS_STATEMENT
+        If txtSql.Contains(JOIN_STATEMENT) Then Return JOIN_STATEMENT
+        If txtSql.Contains(ON_STATEMENT) Then Return ON_STATEMENT
+
+        If txtSql.Contains(WHERE_STATEMENT) Then Return WHERE_STATEMENT
+        
         If txtSql.Contains(GROUPBY_STATEMENT) Then
             If txtSql.Contains(GROUPBY_STATEMENT) Then
                 If txtSql.Contains("(") Then
@@ -218,6 +257,8 @@ Public Class IndentadorBLL
                 End If
             End If
         End If
+
+        If txtSql.Contains(HAVING_STATEMENT) Then Return HAVING_STATEMENT
 
         If txtSql.Contains(ORDERBY_STATEMENT) Then
             If txtSql.Contains(ORDERBY_STATEMENT) Then
@@ -233,8 +274,26 @@ Public Class IndentadorBLL
             End If
         End If
 
+        If lastDetectedStatement = ON_STATEMENT OrElse
+           lastDetectedStatement = ANDJOIN_STATEMENT OrElse
+           lastDetectedStatement = ORJOIN_STATEMENT Then
+            If txtSql.Contains(ANDJOIN_STATEMENT) Then Return ANDJOIN_STATEMENT
+            If txtSql.Contains(ORJOIN_STATEMENT) Then Return ORJOIN_STATEMENT
+        End If
 
-        If txtSql.Contains(HAVING_STATEMENT) Then Return HAVING_STATEMENT
+        If lastDetectedStatement = WHERE_STATEMENT OrElse
+           lastDetectedStatement = ANDWHERE_STATEMENT OrElse
+           lastDetectedStatement = ORWHERE_STATEMENT Then
+            If txtSql.Contains(ANDWHERE_STATEMENT) Then Return ANDWHERE_STATEMENT
+            If txtSql.Contains(ORWHERE_STATEMENT) Then Return ORWHERE_STATEMENT
+        End If
+
+        If lastDetectedStatement = WHERE_STATEMENT OrElse
+           lastDetectedStatement = ANDWHERE_STATEMENT OrElse
+           lastDetectedStatement = ORWHERE_STATEMENT Then
+            If txtSql.Contains(ANDWHERE_STATEMENT) Then Return ANDWHERE_STATEMENT
+            If txtSql.Contains(ORWHERE_STATEMENT) Then Return ORWHERE_STATEMENT
+        End If
 
         If lastDetectedStatement = SELECT_STATEMENT_WITH_FUNCTION_START OrElse
            lastDetectedStatement = SELECT_STATEMENT_WITH_FUNCTION_COMPLETE OrElse
@@ -356,7 +415,7 @@ Public Class IndentadorBLL
             statementDetected = DetectStatement(sql, statementDetected)
 
             Select Case statementDetected
-                Case SELECT_STATEMENT, FROM_STATEMENT, WHERE_STATEMENT, AND_STATEMENT, GROUPBY_STATEMENT, ORDERBY_STATEMENT, HAVING_STATEMENT
+                Case SELECT_STATEMENT, FROM_STATEMENT, WHERE_STATEMENT, ANDWHERE_STATEMENT, GROUPBY_STATEMENT, HAVING_STATEMENT, ORDERBY_STATEMENT
                     While sqlList(i).Contains(statementDetected & "  ")
                         sqlList(i) = sqlList(i).Replace(statementDetected & "  ", statementDetected & " ")
                     End While

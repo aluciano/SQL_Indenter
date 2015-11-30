@@ -118,6 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="txtSql.Text" xml:space="preserve">
-    <value>SELECT   CONVERT(varchar(10), TESTE3, 112),  TESTE2 , CONVERT(varchar(10), TESTE3, 112),    COUNT(1)   FROM  TABELA_01 a, OUTRA_TABELA_02 b, MAIS_OUTRA_TABELA_03 c WHERE TESTE1   &gt;=1  AND TESTE2=100  AND   TESTE3    &lt;&gt;TESTE4    AND  TESTE1&lt;TESTE2 AND TESTE2&gt;  TESTE3 AND TESTE1*=TESTE2 AND TESTE2=*TEST4 AND TESTE2&lt;=TESTE1   GROUP BY    CONVERT(varchar(10), TESTE1, 112),  TESTE2,    CONVERT(varchar(10), TESTE3, 112)   ORDER BY     CONVERT(varchar(10), TESTE3, 112), TESTE2 HAVING COUNT(1) &gt; 0</value>
+    <value>  SELECT CONVERT(varchar(10), TESTE3, 112),  TESTE2 , CONVERT(varchar(10), TESTE3, 112),    COUNT(1)   
+    FROM TABELA_01            a, 
+         OUTRA_TABELA_02      b, 
+         MAIS_OUTRA_TABELA_03 c 
+         JOIN TB_01           d 
+           ON a.TESTE1 = b.TESTE2 
+          AND a.TESTE2 = b.TESTE3 
+           OR a.TESTE3 = b.TESTE4
+        INNER 
+         JOIN TB_04           e 
+           ON a.TESTE1 = b.TESTE2 
+          AND a.TESTE2 = b.TESTE3 
+           OR a.TESTE3 = b.TESTE4
+         LEFT 
+         JOIN TB_05           f 
+           ON a.TESTE1 = b.TESTE2 
+          AND a.TESTE2 = b.TESTE3 
+           OR a.TESTE3 = b.TESTE4
+         LEFT OUTER 
+         JOIN TB_06           g 
+           ON a.TESTE1 = b.TESTE2 
+          AND a.TESTE2 = b.TESTE3 
+           OR a.TESTE3 = b.TESTE4
+   RIGHT 
+    JOIN TB_07 h ON a.TESTE1 = b.TESTE2 AND a.TESTE2 = b.TESTE3 OR a.TESTE3 = b.TESTE4
+   RIGHT OUTER 
+    JOIN TB_08 i ON a.TESTE1 = b.TESTE2 AND a.TESTE2 = b.TESTE3 OR a.TESTE3 = b.TESTE4
+    FULL 
+    JOIN TB_09 j ON a.TESTE1 = b.TESTE2 AND a.TESTE2 = b.TESTE3 OR a.TESTE3 = b.TESTE4
+    FULL OUTER 
+    JOIN TB_10 k ON a.TESTE1 = b.TESTE2 AND a.TESTE2 = b.TESTE3 OR a.TESTE3 = b.TESTE4
+   CROSS 
+    JOIN TB_11 l ON a.TESTE1 = b.TESTE2 AND a.TESTE2 = b.TESTE3 OR a.TESTE3 = b.TESTE4               
+   WHERE a.TESTE1   &gt;=1  OR a.TESTE2=100  AND   a.TESTE3    &lt;&gt;b.TESTE4    AND  a.TESTE1&lt;b.TESTE2 AND b.TESTE2&gt;  c.TESTE3 AND               a.TESTE1*=b.TESTE2 AND b.TESTE2=*c.TEST4 OR b.TESTE2&lt;=c.TESTE1   
+GROUP BY CONVERT(varchar(10), a.TESTE1, 112),  b.TESTE2,    CONVERT(varchar(10), c.TESTE3, 112)   
+  HAVING COUNT(1) &gt; 0
+ORDER BY CONVERT(varchar(10), c.TESTE3, 112), b.TESTE2 </value>
   </data>
 </root>

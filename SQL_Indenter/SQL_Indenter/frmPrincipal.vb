@@ -18,6 +18,7 @@ Public Class FrmPrincipal
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", rdbVirgulaInicioLinha.Checked))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", chkSepararOperadoresLogicosComUmEspaco.Checked))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", chkQuebrarLinhaACadaParametroFuncao.Checked))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", chkAlinharAliasDasTabelas.Checked))
 
         Return parametrosInterface
     End Function

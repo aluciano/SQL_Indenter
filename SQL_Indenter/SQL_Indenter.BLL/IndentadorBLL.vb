@@ -23,8 +23,67 @@ Public Class IndentadorBLL
         sqlList = SepararOperadoresLogicosComUmEspaco(sqlList)
         sqlList = QuebrarLinhaACadaTabela(sqlList)
 
-        Return Indentar(sqlList)
+        sqlList = Indentar(sqlList)
 
+        sqlList = AlinharAliasDasTabelas(sqlList)
+
+        Return String.Join(vbLf, sqlList.ToArray())
+    End Function
+
+    Private Function AlinharAliasDasTabelas(ByVal sqlList As List(Of String)) As List(Of String)
+        If Not ObterValorParametro("AlinharAliasDasTabelas") Then Return sqlList
+
+        Dim statementDetected As String = String.Empty
+        Dim sql As String()
+        Dim max As Integer
+
+        For i = 1 To sqlList.Count - 1
+            statementDetected = DetectStatement(sqlList(i), statementDetected)
+            If statementDetected = FROM_STATEMENT OrElse statementDetected = JOIN_STATEMENT Then
+                sql = sqlList(i).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)
+                If sql.Length >= 2 Then
+                    Dim j = sqlList(i).IndexOf(sql(1), System.StringComparison.Ordinal)
+                    If j + sql(1).Length > max Then
+                        max = j + sql(1).Length
+                    End If
+                End If
+            End If
+
+            If statementDetected = TABELA Then
+                sql = sqlList(i).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)
+                If sql.Length >= 1 Then
+                    Dim j = sqlList(i).IndexOf(sql(0), System.StringComparison.Ordinal)
+                    If j + sql(0).Length > max Then
+                        max = j + sql(0).Length
+                    End If
+                End If
+            End If
+        Next
+
+        For i = 1 To sqlList.Count - 1
+            statementDetected = DetectStatement(sqlList(i), statementDetected)
+            If statementDetected = FROM_STATEMENT OrElse statementDetected = JOIN_STATEMENT Then
+                sql = sqlList(i).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)
+                If sql.Length = 3 Then
+                    Dim j = sqlList(i).IndexOf(sql(1), System.StringComparison.Ordinal)
+                    Dim a = j + sql(1).Length
+                    sqlList(i) = sqlList(i).Replace(sql(1), sql(1).PadRight(sql(1).Length + max - a))
+                End If
+            End If
+
+            If statementDetected = TABELA Then
+                sql = sqlList(i).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)
+                If sql.Length = 2 Then
+                    Dim j = sqlList(i).IndexOf(sql(0), System.StringComparison.Ordinal)
+                    Dim a = j + sql(0).Length
+                    sqlList(i) = sqlList(i).Replace(sql(0), sql(0).PadRight(sql(0).Length + max - a))
+                End If
+            End If
+        Next
+
+
+
+        Return sqlList
     End Function
 
     Private Function QuebrarLinhaACadaTabela(ByVal sqlList As List(Of String)) As List(Of String)
@@ -159,7 +218,7 @@ Public Class IndentadorBLL
         Return sqlList
     End Function
 
-    Private Function Indentar(sqlList As List(Of String)) As String
+    Private Function Indentar(sqlList As List(Of String)) As List(Of String)
         Dim statementDetected As String = ""
         Dim sql As String
         Dim virgula As Integer = If(ObterValorParametro("VirgulaInicioLinha"), -2, 0)
@@ -213,7 +272,7 @@ Public Class IndentadorBLL
             End Select
         Next
 
-        Return String.Join(vbLf, sqlList.ToArray())
+        Return sqlList
     End Function
 
     Private Function DetectStatement(txtSql As String, lastDetectedStatement As String) As String
@@ -243,7 +302,7 @@ Public Class IndentadorBLL
         If txtSql.Contains(ON_STATEMENT) Then Return ON_STATEMENT
 
         If txtSql.Contains(WHERE_STATEMENT) Then Return WHERE_STATEMENT
-        
+
         If txtSql.Contains(GROUPBY_STATEMENT) Then
             If txtSql.Contains(GROUPBY_STATEMENT) Then
                 If txtSql.Contains("(") Then

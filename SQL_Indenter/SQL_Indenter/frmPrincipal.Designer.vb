@@ -27,7 +27,7 @@ Partial Class FrmPrincipal
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.chkUtilizarAClausulaAS = New System.Windows.Forms.CheckBox()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.grpUtilizarAClausulaAS = New System.Windows.Forms.GroupBox()
         Me.rdbAlinharComOAlias = New System.Windows.Forms.RadioButton()
         Me.rdbAlinharComATabela = New System.Windows.Forms.RadioButton()
         Me.chkAlinharAliasDasTabelas = New System.Windows.Forms.CheckBox()
@@ -41,7 +41,7 @@ Partial Class FrmPrincipal
         Me.btnFormatar = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
+        Me.grpUtilizarAClausulaAS.SuspendLayout()
         Me.grpQuebrarLinhaACadaColuna.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -51,28 +51,29 @@ Partial Class FrmPrincipal
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtSql.Font = New System.Drawing.Font("Courier New", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSql.Location = New System.Drawing.Point(12, 147)
+        Me.txtSql.Location = New System.Drawing.Point(281, 34)
         Me.txtSql.Name = "txtSql"
-        Me.txtSql.Size = New System.Drawing.Size(761, 413)
+        Me.txtSql.Size = New System.Drawing.Size(794, 561)
         Me.txtSql.TabIndex = 0
         Me.txtSql.Text = resources.GetString("txtSql.Text")
         '
         'TabControl1
         '
-        Me.TabControl1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TabControl1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(761, 129)
+        Me.TabControl1.Size = New System.Drawing.Size(263, 587)
         Me.TabControl1.TabIndex = 1
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.btnFormatar)
         Me.TabPage1.Controls.Add(Me.chkUtilizarAClausulaAS)
-        Me.TabPage1.Controls.Add(Me.GroupBox1)
+        Me.TabPage1.Controls.Add(Me.grpUtilizarAClausulaAS)
         Me.TabPage1.Controls.Add(Me.chkAlinharAliasDasTabelas)
         Me.TabPage1.Controls.Add(Me.chkSepararOperadoresLogicosComUmEspaco)
         Me.TabPage1.Controls.Add(Me.chkQuebrarLinhaACadaColuna)
@@ -80,7 +81,7 @@ Partial Class FrmPrincipal
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(753, 103)
+        Me.TabPage1.Size = New System.Drawing.Size(255, 561)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "SELECT"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -90,22 +91,22 @@ Partial Class FrmPrincipal
         Me.chkUtilizarAClausulaAS.AutoSize = True
         Me.chkUtilizarAClausulaAS.Checked = True
         Me.chkUtilizarAClausulaAS.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkUtilizarAClausulaAS.Location = New System.Drawing.Point(508, 6)
+        Me.chkUtilizarAClausulaAS.Location = New System.Drawing.Point(13, 146)
         Me.chkUtilizarAClausulaAS.Name = "chkUtilizarAClausulaAS"
         Me.chkUtilizarAClausulaAS.Size = New System.Drawing.Size(125, 17)
         Me.chkUtilizarAClausulaAS.TabIndex = 9
         Me.chkUtilizarAClausulaAS.Text = "Utilizar a cláusula AS"
         Me.chkUtilizarAClausulaAS.UseVisualStyleBackColor = True
         '
-        'GroupBox1
+        'grpUtilizarAClausulaAS
         '
-        Me.GroupBox1.Controls.Add(Me.rdbAlinharComOAlias)
-        Me.GroupBox1.Controls.Add(Me.rdbAlinharComATabela)
-        Me.GroupBox1.Location = New System.Drawing.Point(501, 6)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(145, 71)
-        Me.GroupBox1.TabIndex = 10
-        Me.GroupBox1.TabStop = False
+        Me.grpUtilizarAClausulaAS.Controls.Add(Me.rdbAlinharComOAlias)
+        Me.grpUtilizarAClausulaAS.Controls.Add(Me.rdbAlinharComATabela)
+        Me.grpUtilizarAClausulaAS.Location = New System.Drawing.Point(6, 146)
+        Me.grpUtilizarAClausulaAS.Name = "grpUtilizarAClausulaAS"
+        Me.grpUtilizarAClausulaAS.Size = New System.Drawing.Size(241, 71)
+        Me.grpUtilizarAClausulaAS.TabIndex = 10
+        Me.grpUtilizarAClausulaAS.TabStop = False
         '
         'rdbAlinharComOAlias
         '
@@ -134,7 +135,7 @@ Partial Class FrmPrincipal
         Me.chkAlinharAliasDasTabelas.AutoSize = True
         Me.chkAlinharAliasDasTabelas.Checked = True
         Me.chkAlinharAliasDasTabelas.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkAlinharAliasDasTabelas.Location = New System.Drawing.Point(262, 29)
+        Me.chkAlinharAliasDasTabelas.Location = New System.Drawing.Point(6, 126)
         Me.chkAlinharAliasDasTabelas.Name = "chkAlinharAliasDasTabelas"
         Me.chkAlinharAliasDasTabelas.Size = New System.Drawing.Size(144, 17)
         Me.chkAlinharAliasDasTabelas.TabIndex = 7
@@ -146,7 +147,7 @@ Partial Class FrmPrincipal
         Me.chkSepararOperadoresLogicosComUmEspaco.AutoSize = True
         Me.chkSepararOperadoresLogicosComUmEspaco.Checked = True
         Me.chkSepararOperadoresLogicosComUmEspaco.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkSepararOperadoresLogicosComUmEspaco.Location = New System.Drawing.Point(262, 6)
+        Me.chkSepararOperadoresLogicosComUmEspaco.Location = New System.Drawing.Point(6, 103)
         Me.chkSepararOperadoresLogicosComUmEspaco.Name = "chkSepararOperadoresLogicosComUmEspaco"
         Me.chkSepararOperadoresLogicosComUmEspaco.Size = New System.Drawing.Size(233, 17)
         Me.chkSepararOperadoresLogicosComUmEspaco.TabIndex = 6
@@ -158,7 +159,7 @@ Partial Class FrmPrincipal
         Me.chkQuebrarLinhaACadaColuna.AutoSize = True
         Me.chkQuebrarLinhaACadaColuna.Checked = True
         Me.chkQuebrarLinhaACadaColuna.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chkQuebrarLinhaACadaColuna.Location = New System.Drawing.Point(22, 6)
+        Me.chkQuebrarLinhaACadaColuna.Location = New System.Drawing.Point(13, 6)
         Me.chkQuebrarLinhaACadaColuna.Name = "chkQuebrarLinhaACadaColuna"
         Me.chkQuebrarLinhaACadaColuna.Size = New System.Drawing.Size(160, 17)
         Me.chkQuebrarLinhaACadaColuna.TabIndex = 2
@@ -170,7 +171,7 @@ Partial Class FrmPrincipal
         Me.grpQuebrarLinhaACadaColuna.Controls.Add(Me.chkQuebrarLinhaACadaParametroFuncao)
         Me.grpQuebrarLinhaACadaColuna.Controls.Add(Me.rdbVirgulaInicioLinha)
         Me.grpQuebrarLinhaACadaColuna.Controls.Add(Me.rdbVirgulaFinalLinha)
-        Me.grpQuebrarLinhaACadaColuna.Location = New System.Drawing.Point(15, 6)
+        Me.grpQuebrarLinhaACadaColuna.Location = New System.Drawing.Point(6, 6)
         Me.grpQuebrarLinhaACadaColuna.Name = "grpQuebrarLinhaACadaColuna"
         Me.grpQuebrarLinhaACadaColuna.Size = New System.Drawing.Size(241, 91)
         Me.grpQuebrarLinhaACadaColuna.TabIndex = 5
@@ -217,15 +218,15 @@ Partial Class FrmPrincipal
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
         Me.TabPage2.Size = New System.Drawing.Size(753, 103)
         Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "TabPage2"
+        Me.TabPage2.Text = "FROM"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
         'btnFormatar
         '
         Me.btnFormatar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnFormatar.Location = New System.Drawing.Point(332, 566)
+        Me.btnFormatar.Location = New System.Drawing.Point(6, 522)
         Me.btnFormatar.Name = "btnFormatar"
-        Me.btnFormatar.Size = New System.Drawing.Size(124, 33)
+        Me.btnFormatar.Size = New System.Drawing.Size(241, 33)
         Me.btnFormatar.TabIndex = 2
         Me.btnFormatar.Text = "Formatar"
         Me.btnFormatar.UseVisualStyleBackColor = True
@@ -234,8 +235,7 @@ Partial Class FrmPrincipal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(785, 611)
-        Me.Controls.Add(Me.btnFormatar)
+        Me.ClientSize = New System.Drawing.Size(1087, 611)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.txtSql)
         Me.Name = "FrmPrincipal"
@@ -245,8 +245,8 @@ Partial Class FrmPrincipal
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.grpUtilizarAClausulaAS.ResumeLayout(False)
+        Me.grpUtilizarAClausulaAS.PerformLayout()
         Me.grpQuebrarLinhaACadaColuna.ResumeLayout(False)
         Me.grpQuebrarLinhaACadaColuna.PerformLayout()
         Me.ResumeLayout(False)
@@ -265,7 +265,7 @@ Partial Class FrmPrincipal
     Friend WithEvents chkSepararOperadoresLogicosComUmEspaco As CheckBox
     Friend WithEvents chkQuebrarLinhaACadaParametroFuncao As System.Windows.Forms.CheckBox
     Friend WithEvents chkUtilizarAClausulaAS As System.Windows.Forms.CheckBox
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents grpUtilizarAClausulaAS As System.Windows.Forms.GroupBox
     Friend WithEvents rdbAlinharComOAlias As System.Windows.Forms.RadioButton
     Friend WithEvents rdbAlinharComATabela As System.Windows.Forms.RadioButton
     Friend WithEvents chkAlinharAliasDasTabelas As System.Windows.Forms.CheckBox

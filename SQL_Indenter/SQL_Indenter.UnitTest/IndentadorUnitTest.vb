@@ -12,6 +12,9 @@ Imports SQL_Indenter.BLL
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", True))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", False))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", True))
 
         Return parametrosInterface
     End Function
@@ -23,6 +26,9 @@ Imports SQL_Indenter.BLL
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", False))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", False))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", True))
 
         Return parametrosInterface
     End Function
@@ -34,6 +40,9 @@ Imports SQL_Indenter.BLL
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", True))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", False))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", True))
 
         Return parametrosInterface
     End Function
@@ -45,6 +54,9 @@ Imports SQL_Indenter.BLL
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", True))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", True))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", True))
 
         Return parametrosInterface
     End Function
@@ -56,6 +68,9 @@ Imports SQL_Indenter.BLL
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", False))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", False))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", True))
 
         Return parametrosInterface
     End Function
@@ -67,6 +82,9 @@ Imports SQL_Indenter.BLL
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", False))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", True))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", False))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", True))
 
         Return parametrosInterface
     End Function
@@ -78,6 +96,9 @@ Imports SQL_Indenter.BLL
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", False))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", True))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", True))
 
         Return parametrosInterface
     End Function
@@ -89,6 +110,9 @@ Imports SQL_Indenter.BLL
         parametrosInterface.Add(New ParametroInterfaceBEL("VirgulaInicioLinha", True))
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", True))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", False))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", True))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", True))
 
         Return parametrosInterface
     End Function

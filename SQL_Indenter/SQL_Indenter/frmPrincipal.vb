@@ -19,7 +19,9 @@ Public Class FrmPrincipal
         parametrosInterface.Add(New ParametroInterfaceBEL("SepararOperadoresLogicosComUmEspaco", chkSepararOperadoresLogicosComUmEspaco.Checked))
         parametrosInterface.Add(New ParametroInterfaceBEL("QuebrarLinhaACadaParametroFuncao", chkQuebrarLinhaACadaParametroFuncao.Checked))
         parametrosInterface.Add(New ParametroInterfaceBEL("AlinharAliasDasTabelas", chkAlinharAliasDasTabelas.Checked))
-
+        parametrosInterface.Add(New ParametroInterfaceBEL("UtilizarAClausulaAS", chkUtilizarAClausulaAS.Checked))
+        parametrosInterface.Add(New ParametroInterfaceBEL("AlinharComATabela", rdbAlinharComATabela.Checked))
+        
         Return parametrosInterface
     End Function
 
@@ -47,4 +49,7 @@ Public Class FrmPrincipal
         End If
     End Sub
 
+    Private Sub chkUtilizarAClausulaAS_CheckedChanged(sender As Object, e As EventArgs) Handles chkUtilizarAClausulaAS.CheckedChanged
+        grpUtilizarAClausulaAS.Enabled = chkUtilizarAClausulaAS.Checked
+    End Sub
 End Class

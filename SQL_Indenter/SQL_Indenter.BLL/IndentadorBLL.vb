@@ -40,9 +40,10 @@ Public Class IndentadorBLL
         For i = 1 To sqlList.Count - 1
             statementDetected = DetectStatement(sqlList(i), statementDetected)
             If statementDetected = FROM_STATEMENT OrElse statementDetected = JOIN_STATEMENT Then
+                sqlList(i) = sqlList(i).Replace(" AS", "")
                 sql = sqlList(i).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)
                 If sql.Length >= 2 Then
-                    Dim j = sqlList(i).IndexOf(sql(1), System.StringComparison.Ordinal)
+                    Dim j = sqlList(i).IndexOf(sql(1), StringComparison.Ordinal)
                     If j + sql(1).Length > max Then
                         max = j + sql(1).Length
                     End If
@@ -50,9 +51,10 @@ Public Class IndentadorBLL
             End If
 
             If statementDetected = TABELA Then
+                sqlList(i) = sqlList(i).Replace(" AS", "")
                 sql = sqlList(i).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)
                 If sql.Length >= 1 Then
-                    Dim j = sqlList(i).IndexOf(sql(0), System.StringComparison.Ordinal)
+                    Dim j = sqlList(i).IndexOf(sql(0), StringComparison.Ordinal)
                     If j + sql(0).Length > max Then
                         max = j + sql(0).Length
                     End If
@@ -60,23 +62,75 @@ Public Class IndentadorBLL
             End If
         Next
 
+        Dim qtdEspacosInicio As Integer
+        Dim qtdEspacosAlias As Integer
+
         For i = 1 To sqlList.Count - 1
             statementDetected = DetectStatement(sqlList(i), statementDetected)
             If statementDetected = FROM_STATEMENT OrElse statementDetected = JOIN_STATEMENT Then
                 sql = sqlList(i).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)
                 If sql.Length = 3 Then
-                    Dim j = sqlList(i).IndexOf(sql(1), System.StringComparison.Ordinal)
+                    Dim j = sqlList(i).IndexOf(sql(1), StringComparison.Ordinal)
                     Dim a = j + sql(1).Length
-                    sqlList(i) = sqlList(i).Replace(sql(1), sql(1).PadRight(sql(1).Length + max - a))
+
+                    'sqlList(i) = sqlList(i).Replace(sql(1), sql(1).PadRight(sql(1).Length + max - a))
+                    If ObterValorParametro("UtilizarAClausulaAS") Then
+                        If ObterValorParametro("AlinharComATabela") Then
+                            qtdEspacosInicio = sqlList(i).IndexOf(sql(0), StringComparison.Ordinal)
+                            qtdEspacosAlias = max - a
+
+                            sqlList(i) = String.Format("{0}{1} {2} AS {3}{4}",
+                                                       "".PadRight(qtdEspacosInicio),
+                                                       sql(0),
+                                                       sql(1),
+                                                       "".PadRight(qtdEspacosAlias),
+                                                       sql(2))
+                        Else
+                            qtdEspacosInicio = sqlList(i).IndexOf(sql(0), StringComparison.Ordinal)
+                            qtdEspacosAlias = max - a
+
+                            sqlList(i) = String.Format("{0}{1} {2}{3} AS {4}",
+                                                       "".PadRight(qtdEspacosInicio),
+                                                       sql(0),
+                                                       sql(1),
+                                                       "".PadRight(qtdEspacosAlias),
+                                                       sql(2))
+                        End If
+                    Else
+                        sqlList(i) = sqlList(i).Replace(sql(1), sql(1).PadRight(sql(1).Length + max - a))
+                    End If
                 End If
             End If
 
             If statementDetected = TABELA Then
                 sql = sqlList(i).Split(New Char() {" "}, StringSplitOptions.RemoveEmptyEntries)
                 If sql.Length = 2 Then
-                    Dim j = sqlList(i).IndexOf(sql(0), System.StringComparison.Ordinal)
+                    Dim j = sqlList(i).IndexOf(sql(0), StringComparison.Ordinal)
                     Dim a = j + sql(0).Length
-                    sqlList(i) = sqlList(i).Replace(sql(0), sql(0).PadRight(sql(0).Length + max - a))
+
+                    If ObterValorParametro("UtilizarAClausulaAS") Then
+                        If ObterValorParametro("AlinharComATabela") Then
+                            qtdEspacosInicio = sqlList(i).IndexOf(sql(0), StringComparison.Ordinal)
+                            qtdEspacosAlias = max - a
+
+                            sqlList(i) = String.Format("{0}{1} AS {2}{3}",
+                                                       "".PadRight(qtdEspacosInicio),
+                                                       sql(0),
+                                                       "".PadRight(qtdEspacosAlias),
+                                                       sql(1))
+                        Else
+                            qtdEspacosInicio = sqlList(i).IndexOf(sql(0), StringComparison.Ordinal)
+                            qtdEspacosAlias = max - a
+
+                            sqlList(i) = String.Format("{0}{1}{2} AS {3}",
+                                                       "".PadRight(qtdEspacosInicio),
+                                                       sql(0),
+                                                       "".PadRight(qtdEspacosAlias),
+                                                       sql(1))
+                        End If
+                    Else
+                        sqlList(i) = sqlList(i).Replace(sql(0), sql(0).PadRight(sql(0).Length + max - a))
+                    End If
                 End If
             End If
         Next
